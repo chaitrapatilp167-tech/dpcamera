@@ -1,0 +1,3678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Dashboard — Stackly Photography</title>
+  <meta name="description" content="Stackly Studio Management & Client Portal Dashboard.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Advanced Studio Dashboard Styles ─────────────────── */
+    body {
+      background-color: var(--ink);
+      color: var(--paper);
+      font-family: 'Inter', sans-serif;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .dash-layout {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+      background: var(--ink);
+      align-items: stretch;
+    }
+
+    /* Sidebar */
+    .dash-sidebar {
+      width: 260px;
+      min-width: 260px;
+      flex-shrink: 0;
+      background: var(--ink-2);
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      padding: 24px 20px;
+      height: 100vh;
+      max-height: 100vh;
+      overflow: hidden;
+      z-index: 100;
+    }
+
+    .dash-main-container {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .dash-brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .dash-brand .logo-text {
+      font-family: 'Fraunces', serif;
+      font-size: 34px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    .dash-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 3px 7px;
+      background: rgba(224, 164, 74, 0.15);
+      color: var(--amber);
+      border: 1px solid rgba(224, 164, 74, 0.3);
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .dash-nav-section {
+      margin-bottom: 24px;
+    }
+
+    .dash-nav-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--paper-faint);
+      margin-bottom: 12px;
+      padding-left: 10px;
+    }
+
+    .dash-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .dash-menu-item button,
+    .dash-menu-item a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      color: var(--paper-dim);
+      font-size: 13.5px;
+      font-weight: 500;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .dash-menu-item button svg,
+    .dash-menu-item a svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--paper-faint);
+      transition: stroke 0.2s ease;
+    }
+
+    .dash-menu-item button:hover,
+    .dash-menu-item a:hover {
+      background: rgba(243, 236, 224, 0.05);
+      color: var(--paper);
+    }
+
+    .dash-menu-item button:hover svg,
+    .dash-menu-item a:hover svg {
+      stroke: var(--amber);
+    }
+
+    .dash-menu-item button.active,
+    .dash-menu-item a.active {
+      background: rgba(224, 164, 74, 0.12);
+      color: var(--amber);
+      font-weight: 600;
+      border-left: 2px solid var(--amber);
+      padding-left: 10px;
+    }
+
+    .dash-menu-item button.active svg,
+    .dash-menu-item a.active svg {
+      stroke: var(--amber);
+    }
+
+    .dash-menu-item .counter {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      background: var(--line);
+      color: var(--paper-dim);
+      padding: 2px 6px;
+      border-radius: 10px;
+    }
+
+    .dash-sidebar-footer {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .sidebar-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--line);
+      margin-bottom: 12px;
+    }
+
+    .sidebar-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--amber);
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-family: 'Fraunces', serif;
+      font-size: 15px;
+    }
+
+    .sidebar-user-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .sidebar-user-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--paper);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-user-role {
+      font-size: 11px;
+      color: var(--paper-faint);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Main Container */
+    .dash-main-container {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 100vh;
+    }
+
+    /* Top Bar Header */
+    .dash-header {
+      height: 88px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(21, 19, 15, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 9;
+    }
+
+    .dash-search-box {
+      position: relative;
+      width: 320px;
+    }
+
+    .dash-search-box input {
+      width: 100%;
+      background: var(--ink-2);
+      border: 1px solid var(--line);
+      padding: 9px 14px 9px 38px;
+      border-radius: 4px;
+      color: var(--paper);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .dash-search-box input:focus {
+      border-color: var(--amber);
+    }
+
+    .dash-search-box svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      stroke: var(--paper-faint);
+    }
+
+    .dash-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Role Switcher Pill */
+    .role-switcher {
+      display: flex;
+      background: var(--ink-2);
+      border: 1px solid var(--line);
+      padding: 3px;
+      border-radius: 6px;
+    }
+
+    .role-btn {
+      background: transparent;
+      border: none;
+      color: var(--paper-dim);
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .role-btn.active {
+      background: var(--amber);
+      color: var(--ink);
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(224, 164, 74, 0.25);
+    }
+
+    .dash-icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
+      background: var(--ink-2);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--paper-dim);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .dash-icon-btn:hover {
+      border-color: var(--amber);
+      color: var(--paper);
+    }
+
+    .dash-icon-btn .dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--amber);
+    }
+
+    /* Content Area */
+    .dash-content {
+      padding: 32px 36px 48px;
+    }
+
+    .dash-welcome {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px 24px;
+      margin-bottom: 28px;
+    }
+
+    .dash-welcome > div {
+      min-width: 0;
+    }
+
+    .dash-welcome > .btn {
+      flex: 0 0 auto;
+    }
+
+    .dash-welcome h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 32px;
+      font-weight: 500;
+      margin: 4px 0 0;
+      color: var(--paper);
+    }
+
+    .dash-subtext {
+      color: var(--paper-dim);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      /* Keep the overview summaries aligned in a single desktop row. */
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .kpi-card {
+      background: var(--ink-2);
+      border: 1px solid var(--line);
+      padding: 22px 20px;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(224, 164, 74, 0.4);
+    }
+
+    .kpi-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .kpi-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--paper-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .kpi-icon-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      background: rgba(224, 164, 74, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--amber);
+    }
+
+    .kpi-value {
+      font-family: 'Fraunces', serif;
+      font-size: 30px;
+      font-weight: 500;
+      color: var(--paper);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .kpi-footer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      flex-wrap: wrap;
+      line-height: 1.45;
+    }
+
+    .trend-up {
+      color: #68d391;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .trend-label {
+      color: var(--paper-faint);
+    }
+
+    /* Dashboard Main Grid Layout */
+    .dash-grid-2col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .dash-grid-2col.is-flush {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .dash-grid-2col > .dash-panel {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin-bottom: 0;
+    }
+
+    .dash-grid-2col > .dash-panel > .panel-head {
+      flex-shrink: 0;
+    }
+
+    .dash-grid-2col > .dash-panel > :not(.panel-head) {
+      flex: 1 1 auto;
+    }
+
+    .dash-grid-2col > .dash-panel > .press-row,
+    .dash-grid-2col > .dash-panel > .crew-row,
+    .dash-grid-2col > .dash-panel > .invoice-row {
+      display: flex;
+      align-items: center;
+    }
+
+    .dash-grid-2col .stack-fill {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 0;
+    }
+
+    .dash-grid-2col .stack-fill .press-row {
+      flex: 1;
+      align-items: center;
+    }
+
+    .dash-grid-2col .custom-table {
+      height: 100%;
+    }
+
+    .dash-grid-2col > div:not(.dash-panel) {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .dash-grid-2col > div:not(.dash-panel) > .dash-panel:last-child {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0;
+    }
+
+    .overview-lower {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .overview-lower > .dash-panel {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin-bottom: 0;
+    }
+
+    .overview-lower > .dash-panel > :not(.panel-head) {
+      flex: 1 1 auto;
+    }
+
+    .crew-row,
+    .invoice-row,
+    .press-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .crew-row:last-child,
+    .invoice-row:last-child,
+    .press-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .crew-row img {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .crew-meta,
+    .press-meta,
+    .invoice-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .crew-meta strong,
+    .press-meta strong,
+    .invoice-meta strong {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--paper);
+    }
+
+    .crew-meta span,
+    .press-meta span,
+    .invoice-meta span {
+      display: block;
+      font-size: 12px;
+      color: var(--paper-faint);
+      margin-top: 2px;
+    }
+
+    .city-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .city-card {
+      border: 1px solid var(--line);
+      background: var(--ink);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .city-card:hover {
+      border-color: rgba(224, 164, 74, 0.45);
+    }
+
+    .city-card img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .city-card div {
+      padding: 12px 14px 14px;
+    }
+
+    .city-card strong {
+      display: block;
+      font-size: 14px;
+      color: var(--paper);
+    }
+
+    .city-card span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--paper-faint);
+      letter-spacing: 0.04em;
+    }
+
+    /* Panels & Cards */
+    .dash-panel {
+      background: var(--ink-2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .panel-head h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 400;
+      margin: 0;
+      color: var(--paper);
+    }
+
+    .panel-action-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--amber);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      padding: 0;
+    }
+
+    .panel-action-btn:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    /* Table Styles */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .custom-table th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--paper-faint);
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .custom-table td {
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--paper-dim);
+      vertical-align: middle;
+    }
+
+    .custom-table tr:hover td {
+      background: rgba(243, 236, 224, 0.02);
+      color: var(--paper);
+    }
+
+    .table-project-name {
+      font-weight: 600;
+      color: var(--paper) !important;
+      display: block;
+    }
+
+    .table-client-sub {
+      font-size: 12px;
+      color: var(--paper-faint);
+    }
+
+    /* Status Badges */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .status-retouching {
+      background: rgba(224, 164, 74, 0.15);
+      color: var(--amber);
+      border: 1px solid rgba(224, 164, 74, 0.3);
+    }
+
+    .status-confirmed {
+      background: rgba(104, 211, 145, 0.15);
+      color: #68d391;
+      border: 1px solid rgba(104, 211, 145, 0.3);
+    }
+
+    .status-in-lab {
+      background: rgba(99, 179, 237, 0.15);
+      color: #63b3ed;
+      border: 1px solid rgba(99, 179, 237, 0.3);
+    }
+
+    .status-delivered {
+      background: rgba(183, 148, 244, 0.15);
+      color: #b794f4;
+      border: 1px solid rgba(183, 148, 244, 0.3);
+    }
+
+    /* Proofing Cards Grid */
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .proof-card {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--ink);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .proof-card:hover {
+      border-color: var(--amber);
+      transform: translateY(-3px);
+    }
+
+    .proof-thumb-wrap {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+
+    .proof-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .proof-card:hover .proof-thumb-wrap img {
+      transform: scale(1.05);
+    }
+
+    .proof-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(21, 19, 15, 0.85);
+      backdrop-filter: blur(4px);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--amber);
+      padding: 3px 8px;
+      border-radius: 3px;
+      border: 1px solid var(--line);
+    }
+
+    .proof-body {
+      padding: 14px;
+    }
+
+    .proof-body h4 {
+      font-family: 'Fraunces', serif;
+      font-size: 15px;
+      font-weight: 400;
+      margin: 0 0 4px;
+      color: var(--paper);
+    }
+
+    .proof-meta {
+      font-size: 12px;
+      color: var(--paper-faint);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Timeline / Schedule Widget */
+    .schedule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .schedule-item {
+      display: flex;
+      gap: 14px;
+      padding: 12px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .schedule-item:hover {
+      border-color: var(--amber);
+    }
+
+    .schedule-date-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 4px;
+      background: rgba(224, 164, 74, 0.12);
+      border: 1px solid rgba(224, 164, 74, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .schedule-date-box .day {
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--amber);
+      line-height: 1;
+    }
+
+    .schedule-date-box .month {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      text-transform: uppercase;
+      color: var(--paper-dim);
+    }
+
+    .schedule-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .schedule-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--paper);
+      margin-bottom: 3px;
+    }
+
+    .schedule-desc {
+      font-size: 12px;
+      color: var(--paper-dim);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Inventory Progress Bars */
+    .inventory-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .inventory-item-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      margin-bottom: 6px;
+    }
+
+    .inventory-name {
+      color: var(--paper);
+      font-weight: 500;
+    }
+
+    .inventory-count {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--amber);
+      font-size: 11.5px;
+    }
+
+    .progress-bar-bg {
+      height: 6px;
+      background: var(--ink);
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--amber);
+      border-radius: 3px;
+    }
+
+    /* Right Info Panel (inline in grid) */
+    .right-info-panel {
+      display: none;
+      flex-direction: column;
+      background: var(--ink-2);
+      border-left: 1px solid var(--amber);
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      overflow: hidden;
+      min-width: 0;
+      width: 100%;
+    }
+    .dash-layout.panel-open .right-info-panel {
+      display: flex;
+    }
+    .rp-header {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 12px;
+    }
+    .rp-header-left { display:flex; flex-direction:column; gap:3px; }
+    .rp-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--amber);
+    }
+    .rp-title {
+      font-family: 'Fraunces', serif;
+      font-size: 19px;
+      color: var(--paper);
+      margin: 0;
+      line-height: 1.2;
+    }
+    .rp-close {
+      background: var(--ink);
+      border: 1px solid var(--line);
+      color: var(--paper-dim);
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .rp-close:hover { border-color: var(--amber); color: var(--amber); }
+    .rp-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 22px;
+      font-size: 13.5px;
+      color: var(--paper-dim);
+      line-height: 1.6;
+    }
+    .rp-body::-webkit-scrollbar { width: 3px; }
+    .rp-body::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+    .rp-footer {
+      padding: 14px 22px;
+      border-top: 1px solid var(--line);
+      flex-shrink: 0;
+      display: flex;
+      gap: 10px;
+    }
+    .rp-action {
+      flex: 1;
+      padding: 10px 14px;
+      background: var(--amber);
+      color: var(--ink);
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 12.5px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .rp-action:hover { opacity: 0.85; }
+    .rp-dismiss {
+      padding: 10px 12px;
+      background: transparent;
+      color: var(--paper-dim);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-size: 12.5px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .rp-dismiss:hover { border-color: var(--amber); color: var(--amber); }
+    /* Keep old drawer CSS as no-op */
+    .drawer-backdrop, .info-drawer { display: none !important; }
+
+
+    /* Toast Notification */
+    .toast-notification {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--ink-2);
+      border: 1px solid var(--amber);
+      padding: 14px 20px;
+      border-radius: 6px;
+      color: var(--paper);
+      font-size: 13.5px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 300;
+    }
+
+    .toast-notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 1080px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .dash-grid-2col,
+      .dash-grid-2col.is-flush,
+      .overview-lower,
+      .city-grid {
+        grid-template-columns: 1fr;
+      }
+      .proof-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    /* ── Mobile Bottom Navigation ──────────────────────────── */
+    .mobile-bottom-nav {
+      display: none;
+    }
+    .mobile-header-btn {
+      display: none;
+    }
+    .mobile-sidebar-overlay {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: auto;
+      }
+      .dash-layout {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+      }
+      .dash-main-container {
+        flex: 0 0 auto;
+        padding-bottom: 75px;
+        width: 100%;
+        max-width: 100vw;
+        height: auto;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: visible;
+      }
+      .dash-layout.panel-open .right-info-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 300;
+        border-left: none;
+        display: flex;
+      }
+      .right-info-panel > div {
+        width: 100vw !important;
+      }
+      /* Sidebar becomes a smooth slide-in drawer on mobile */
+      .dash-sidebar {
+        position: fixed;
+        left: -290px;
+        top: 0;
+        width: 280px;
+        height: 100vh;
+        height: 100dvh;
+        z-index: 350;
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-right: 1px solid var(--line);
+        box-shadow: none;
+        overflow-y: auto;
+      }
+      .dash-sidebar.mobile-open {
+        left: 0;
+        box-shadow: 12px 0 35px rgba(0,0,0,0.7);
+      }
+      /* Backdrop Overlay behind sidebar */
+      .mobile-sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.65);
+        backdrop-filter: blur(4px);
+        z-index: 340;
+      }
+      .mobile-sidebar-overlay.active {
+        display: block;
+      }
+      /* Mobile header fixes */
+      .dash-header {
+        padding: 0 12px;
+        height: 60px;
+        gap: 8px;
+        position: sticky;
+        top: 0;
+        z-index: 150;
+        background: var(--ink);
+        border-bottom: 1px solid var(--line);
+      }
+      .dash-search-box {
+        flex: 1;
+        width: auto;
+        min-width: 0;
+        padding: 0 10px;
+        height: 38px;
+      }
+      .dash-search-box input {
+        font-size: 13px;
+      }
+      .dash-header-actions {
+        gap: 6px;
+      }
+      .mobile-header-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: var(--ink-2);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        color: var(--paper);
+        cursor: pointer;
+        flex-shrink: 0;
+        order: -1;
+      }
+      .role-switcher {
+        display: none;
+      }
+      .dash-content {
+        padding: 14px 12px 90px;
+      }
+      .dash-welcome {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .dash-welcome h1 {
+        font-size: 22px;
+      }
+      .dash-subtext {
+        font-size: 13px;
+      }
+      .kpi-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .kpi-card {
+        padding: 14px 12px;
+      }
+      .kpi-value {
+        font-size: 22px;
+      }
+      .proof-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .custom-table th, .custom-table td {
+        padding: 10px 8px;
+        font-size: 12px;
+      }
+      /* Hide secondary table columns on mobile for clean fit */
+      .col-coverage, .col-film {
+        display: none;
+      }
+      /* Present the pipeline as readable shoot cards instead of a compressed table. */
+      #pipelineTable {
+        display: block;
+        width: 100%;
+      }
+      #pipelineTable thead {
+        display: none;
+      }
+      #pipelineTable tbody {
+        display: grid;
+        gap: 10px;
+      }
+      #pipelineTable tr {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px 12px;
+        padding: 14px;
+        background: var(--ink-2);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+      #pipelineTable td {
+        display: block;
+        padding: 0;
+        border: 0;
+        font-size: 12px;
+      }
+      #pipelineTable td:first-child,
+      #pipelineTable .col-coverage,
+      #pipelineTable .col-film {
+        display: block;
+        grid-column: 1 / -1;
+      }
+      #pipelineTable .col-coverage::before,
+      #pipelineTable .col-film::before {
+        display: inline-block;
+        min-width: 76px;
+        margin-right: 8px;
+        color: var(--paper-faint);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      #pipelineTable .col-coverage::before { content: 'Coverage'; }
+      #pipelineTable .col-film::before { content: 'Film stock'; }
+      #pipelineTable td:nth-child(4) {
+        align-self: center;
+      }
+      #pipelineTable td:last-child {
+        justify-self: end;
+      }
+      .panel-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .panel-head h2 {
+        font-size: 16px;
+      }
+      /* Mobile Bottom Nav */
+      .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(29, 26, 21, 0.95);
+        border-top: 1px solid var(--line);
+        z-index: 200;
+        height: 64px;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0 4px;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+      .mob-nav-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        padding: 6px 8px;
+        background: none;
+        border: none;
+        color: var(--paper-faint);
+        font-size: 10px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.2s;
+        flex: 1;
+        position: relative;
+      }
+      .mob-nav-btn svg {
+        width: 20px;
+        height: 20px;
+        stroke: var(--paper-faint);
+        transition: stroke 0.2s;
+      }
+      .mob-nav-btn.active {
+        color: var(--amber);
+      }
+      .mob-nav-btn.active svg {
+        stroke: var(--amber);
+      }
+      .mob-nav-badge {
+        position: absolute;
+        top: 2px;
+        right: calc(50% - 16px);
+        background: var(--amber);
+        color: var(--ink);
+        font-size: 8px;
+        font-weight: 700;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'JetBrains Mono', monospace;
+      }
+    }
+
+    @media (max-width: 440px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+      .kpi-value {
+        font-size: 24px;
+      }
+      .dash-welcome h1 {
+        font-size: 20px;
+      }
+      .dash-header-actions .btn-solid {
+        padding: 8px 12px !important;
+        font-size: 12px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Mobile Sidebar Overlay -->
+  <div class="mobile-sidebar-overlay" id="mobileSidebarOverlay" onclick="closeMobileSidebar()"></div>
+
+  <div class="dash-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="dash-sidebar">
+      <div class="dash-brand">
+        <a href="index.html" class="logo-text">Stackly</a>
+      </div>
+
+      <div class="dash-nav-section">
+        <div class="dash-nav-title">Core Workspace</div>
+        <ul class="dash-menu">
+          <li class="dash-menu-item">
+            <button id="navOverview" class="active" onclick="switchDashboardTab('overview')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <span>Overview</span></button>
+          </li>
+          <li class="dash-menu-item">
+            <button id="navProofs" onclick="switchDashboardTab('proofs')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+              <span>Client Proofs</span>
+              <span class="counter">8</span>
+            </button>
+          </li>
+          <li class="dash-menu-item">
+            <button id="navCalendar" onclick="switchDashboardTab('calendar')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span>Shoot Calendar</span></button>
+          </li>
+          <li class="dash-menu-item">
+            <button id="navServices" onclick="switchDashboardTab('services')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 17 22 12"></polyline></svg>
+              <span>Services &amp; Rates</span></button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dash-nav-section">
+        <div class="dash-nav-title">Studio Operations</div>
+        <ul class="dash-menu">
+          <li class="dash-menu-item">
+            <button id="navFilm" onclick="switchDashboardTab('film')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+              <span>Film Vault</span>
+              <span class="counter" style="background: rgba(224,164,74,0.2); color: var(--amber);">142</span>
+            </button>
+          </li>
+          <li class="dash-menu-item">
+            <button id="navInquiries" onclick="switchDashboardTab('inquiries')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span>Inquiries</span>
+              <span class="counter">3</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dash-sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar" id="sidebarAvatar">—</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="sidebarUserName">Not signed in</div>
+            <div class="sidebar-user-role" id="sidebarUserEmail"></div>
+          </div>
+        </div>
+        <a href="index.html" class="dash-menu-item" style="text-decoration: none;" onclick="try { localStorage.removeItem('stacklyEmail'); sessionStorage.removeItem('stacklyEmail'); localStorage.removeItem('stacklyRole'); sessionStorage.removeItem('stacklyRole'); } catch (e) {}">
+          <div style="display: flex; align-items: center; gap: 10px; color: var(--paper-faint); font-size: 13px; padding: 6px 10px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span>Log out to Home</span>
+          </div>
+        </a>
+      </div>
+    </aside>
+    <script>
+      (function showLoginEmail() {
+        var email = '';
+        try {
+          email = new URLSearchParams(window.location.search).get('email') || '';
+        } catch (e) {}
+        email = (email || '').trim();
+        try {
+          if (!email) email = (localStorage.getItem('stacklyEmail') || '').trim();
+          if (!email) email = (sessionStorage.getItem('stacklyEmail') || '').trim();
+          if (email) {
+            localStorage.setItem('stacklyEmail', email);
+            sessionStorage.setItem('stacklyEmail', email);
+          }
+        } catch (e) {}
+        if (email) {
+          var letter = email.charAt(0).toUpperCase();
+          var avatar = document.getElementById('sidebarAvatar');
+          var nameEl = document.getElementById('sidebarUserName');
+          var mailEl = document.getElementById('sidebarUserEmail');
+          if (avatar) avatar.textContent = letter;
+          if (nameEl) {
+            nameEl.textContent = email;
+            nameEl.title = email;
+          }
+          if (mailEl) mailEl.textContent = '';
+        }
+      })();
+
+      window.openModal = function () { window.location.href = '404.html'; };
+      document.addEventListener('click', function (e) {
+        // Skip sidebar, search, role switcher, mobile UI elements
+        var skip = e.target.closest('.dash-sidebar, .role-switcher, .dash-search-box, #dashSearchInput, .mobile-bottom-nav, .mobile-header-btn, .mobile-sidebar-overlay, #mobileSidebarOverlay');
+        if (skip) return;
+        var hit = e.target.closest('button, .btn, .kpi-card, .proof-card, .schedule-item, .city-card, .crew-row, .panel-action-btn, a.panel-action-btn');
+        if (!hit) return;
+        // Skip buttons that have specific onclick functions we want to keep working
+        var onclickAttr = hit.getAttribute('onclick') || '';
+        if (onclickAttr.includes('openMobileSidebar') || onclickAttr.includes('closeMobileSidebar') || onclickAttr.includes('switchDashboardTab') || onclickAttr.includes('switchRole') || onclickAttr.includes('filterDashboard') || onclickAttr.includes('showToast')) return;
+        e.preventDefault();
+        e.stopPropagation();
+        window.location.href = '404.html';
+      }, true);
+    </script>
+
+    <!-- Main Container -->
+    <div class="dash-main-container">
+      <!-- Header Bar -->
+      <header class="dash-header">
+        <!-- Hamburger for mobile -->
+        <button class="mobile-header-btn" onclick="openMobileSidebar()" aria-label="Open menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+
+        <div class="dash-search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="dashSearchInput" placeholder="Search shoots, clients..." onkeyup="filterDashboardTable()">
+        </div>
+
+        <div class="dash-header-actions">
+          <!-- Role Switcher -->
+          <div class="role-switcher">
+            <button class="role-btn active" id="btnPhotographerRole" onclick="switchRole('photographer')">Studio Mode</button>
+            <button class="role-btn" id="btnClientRole" onclick="switchRole('client')">Client Portal</button>
+          </div>
+
+          <!-- Notification Bell -->
+          <button class="dash-icon-btn" onclick="openModal('Studio Notifications', 'Real-time updates on client approvals, lab processing, and payments.', 'notifications')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <span class="dot"></span></button>
+
+          <!-- New Booking CTA -->
+          <button class="btn btn-solid" style="padding: 9px 18px; font-size: 13px;" onclick="openModal('Record New Booking', 'Form to add a new shoot booking to the studio schedule.', 'new_booking')"><span>New Booking</span></button>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <main class="dash-content">
+        <!-- OVERVIEW TAB -->
+        <div id="tab-overview" class="tab-view">
+          <!-- PHOTOGRAPHER / STUDIO VIEW -->
+          <div id="view-photographer">
+          <div class="dash-welcome">
+            <div>
+              <span class="eyebrow">Studio Overview</span>
+              <h1>Welcome back, Alex.</h1>
+              <div class="dash-subtext">You have 5 active shoots this week and 142 rolls in the darkroom vault.</div>
+            </div>
+            <button class="btn btn-ghost" onclick="openModal('Monthly Studio Report', 'Comprehensive breakdown of studio revenue, film roll usage, and client ratings.', 'report')" style="padding: 9px 16px; font-size: 13px;">Export Report</button>
+          </div>
+
+          <!-- KPI Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card" onclick="openModal('Revenue Financial Breakdown', 'Detailed monthly earnings, client deposits, and outstanding invoices.', 'revenue')">
+              <div class="kpi-header">
+                <span class="kpi-title">Monthly Revenue</span>
+                <div class="kpi-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+              </div>
+              <div class="kpi-value">₹4,85,000</div>
+              <div class="kpi-footer">
+                <span class="trend-up">↑ 14.2%</span>
+                <span class="trend-label">vs previous month</span>
+              </div>
+            </div>
+
+            <div class="kpi-card" onclick="openModal('Active Shoots Overview', 'All 28 active bookings across weddings, events, and commercial shoots.', 'active_shoots')">
+              <div class="kpi-header">
+                <span class="kpi-title">Active Shoots</span>
+                <div class="kpi-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                </div>
+              </div>
+              <div class="kpi-value">28</div>
+              <div class="kpi-footer">
+                <span style="color: var(--amber); font-weight: 600;">12 Weddings</span>
+                <span class="trend-label">· 16 Corporate/Events</span>
+              </div>
+            </div>
+
+            <div class="kpi-card" onclick="openModal('Lab Processing Pipeline', 'Status of Portra 400, Portra 800, and Tri-X 400 rolls in darkroom development.', 'lab_processing')">
+              <div class="kpi-header">
+                <span class="kpi-title">Lab Processing</span>
+                <div class="kpi-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                </div>
+              </div>
+              <div class="kpi-value">142 Rolls</div>
+              <div class="kpi-footer">
+                <span style="color: #63b3ed; font-weight: 600;">Portra 400</span>
+                <span class="trend-label">· 86% scanned</span>
+              </div>
+            </div>
+
+            <div class="kpi-card" onclick="openModal('Client Reviews &amp; Ratings', '118 verified client reviews across all disciplines.', 'reviews')">
+              <div class="kpi-header">
+                <span class="kpi-title">Client Satisfaction</span>
+                <div class="kpi-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+              </div>
+              <div class="kpi-value">98.4%</div>
+              <div class="kpi-footer">
+                <span class="trend-up">★ 4.98 / 5</span>
+                <span class="trend-label">from 118 reviews</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Grid -->
+          <div class="dash-grid-2col is-flush">
+            <!-- Left Column: Pipeline Table & Recent Scans -->
+            <div>
+              <!-- Pipeline Table Panel -->
+              <div class="dash-panel">
+                <div class="panel-head">
+                  <h2>Active Shoot Pipeline</h2>
+                  <button class="panel-action-btn" onclick="openModal('Full Pipeline Schedule', 'List of all upcoming and in-progress shoots across cities.', 'pipeline_all')">View All Shoots →</button>
+                </div>
+
+                <div style="overflow-x: auto;">
+                  <table class="custom-table" id="pipelineTable">
+                    <thead>
+                      <tr>
+                        <th>Project &amp; Client</th>
+                        <th class="col-coverage">Coverage</th>
+                        <th class="col-film">Film Stock</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="table-project-name">Rao Wedding Coverage</span>
+                          <span class="table-client-sub">Riya &amp; Arjun · Udaipur</span>
+                        </td>
+                        <td class="col-coverage">Marriage (Full Day)</td>
+                        <td class="col-film"><span style="font-family:'JetBrains Mono'; font-size:11px; color:var(--amber);">Portra 400 (36 rolls)</span></td>
+                        <td><span class="status-pill status-retouching">Retouching</span></td>
+                        <td><button class="btn btn-ghost" style="padding: 4px 10px; font-size: 11px;" onclick="openModal('Rao Wedding Proofs Details', '36 rolls of Portra 400 film scans developed. 48-page linen album in retouching.', 'rao_details')">Proofs</button></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="table-project-name">Northstar Tech Summit</span>
+                          <span class="table-client-sub">Northstar Co. · Mumbai</span>
+                        </td>
+                        <td class="col-coverage">Office / Corporate</td>
+                        <td class="col-film"><span style="font-family:'JetBrains Mono'; font-size:11px; color:var(--amber);">Tri-X 400 (12 rolls)</span></td>
+                        <td><span class="status-pill status-in-lab">In Lab Scan</span></td>
+                        <td><button class="btn btn-ghost" style="padding: 4px 10px; font-size: 11px;" onclick="openModal('Northstar Summit Scans', 'Keynote &amp; networking stills scanned in high-resolution B&amp;W.', 'northstar_details')">Scans</button></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="table-project-name">Himalaya Brand Expedition</span>
+                          <span class="table-client-sub">Fieldwork Co. · Himachal</span>
+                        </td>
+                        <td class="col-coverage">Nature &amp; Editorial</td>
+                        <td class="col-film"><span style="font-family:'JetBrains Mono'; font-size:11px; color:var(--amber);">Ektar 100 (18 rolls)</span></td>
+                        <td><span class="status-pill status-confirmed">Confirmed</span></td>
+                        <td><button class="btn btn-ghost" style="padding: 4px 10px; font-size: 11px;" onclick="openModal('Himalaya Shoot Brief', 'Dawn hike travel campaign brief for Fieldwork Co.', 'himalaya_details')">Brief</button></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="table-project-name">IIT Leadership Series</span>
+                          <span class="table-client-sub">IIT Bengaluru</span>
+                        </td>
+                        <td class="col-coverage">Campus / Seminar</td>
+                        <td class="col-film"><span style="font-family:'JetBrains Mono'; font-size:11px; color:var(--amber);">Portra 800 (8 rolls)</span></td>
+                        <td><span class="status-pill status-delivered">Delivered</span></td>
+                        <td><button class="btn btn-ghost" style="padding: 4px 10px; font-size: 11px;" onclick="openModal('IIT Leadership Album Status', 'Delivered online gallery and 24-page hardcover album.', 'iit_details')">Album</button></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="table-project-name">Goa Editorial Sitting</span>
+                          <span class="table-client-sub">Atelier Noor · Anjuna</span>
+                        </td>
+                        <td>Portrait / Fashion</td>
+                        <td><span style="font-family:'JetBrains Mono'; font-size:11px; color:var(--amber);">Portra 160 (10 rolls)</span></td>
+                        <td><span class="status-pill status-retouching">Retouching</span></td>
+                        <td><button class="btn btn-ghost" style="padding: 4px 10px; font-size: 11px;" onclick="openModal('Goa Editorial Sitting', 'Coastal fashion sitting. 10 rolls Portra 160, 32 selects for lookbook.', 'goa_details')">Selects</button></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="table-project-name">Salem HQ Still Life</span>
+                          <span class="table-client-sub">Stackly Archive · Studio B</span>
+                        </td>
+                        <td>Studio / Product</td>
+                        <td><span style="font-family:'JetBrains Mono'; font-size:11px; color:var(--amber);">Ektar 100 (6 rolls)</span></td>
+                        <td><span class="status-pill status-in-lab">In Lab Scan</span></td>
+                        <td><button class="btn btn-ghost" style="padding: 4px 10px; font-size: 11px;" onclick="openModal('Salem Still Life Session', 'Archive stills of cameras, albums, and darkroom tools for the journal.', 'salem_details')">Lab</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Recent Scans / Proofing Grid -->
+              <div class="dash-panel">
+                <div class="panel-head">
+                  <h2>Recent Film Proofs</h2>
+                  <button class="panel-action-btn" onclick="openModal('All Film Scans Vault', 'Full archive of darkroom film scans across projects.', 'scans_all')">Browse Full Gallery →</button>
+                </div>
+
+                <div class="proof-grid">
+                  <div class="proof-card" onclick="openModal('Pheras at Dusk — Proofing Review', 'Shot on Portra 400 in Udaipur. 48 high-res frames selected for album printing.', 'proof_w1')">
+                    <div class="proof-thumb-wrap">
+                      <img src="img/g_w1.webp" alt="Wedding Frame">
+                      <span class="proof-tag">PORTRA 400</span>
+                    </div>
+                    <div class="proof-body">
+                      <h4>Pheras at dusk</h4>
+                      <div class="proof-meta">
+                        <span>Udaipur · 48 frames</span>
+                        <span style="color:var(--amber); font-size:11px; font-weight:600;">Review →</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="proof-card" onclick="openModal('Summit Floor — Proofing Review', 'Shot on Tri-X 400 in Mumbai. Press-ready stills for recap report.', 'proof_e1')">
+                    <div class="proof-thumb-wrap">
+                      <img src="img/g_e1.webp" alt="Summit Frame">
+                      <span class="proof-tag">TRI-X 400</span>
+                    </div>
+                    <div class="proof-body">
+                      <h4>Summit Floor</h4>
+                      <div class="proof-meta">
+                        <span>Mumbai · 24 frames</span>
+                        <span style="color:var(--amber); font-size:11px; font-weight:600;">Review →</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="proof-card" onclick="openModal('First Light Hike — Proofing Review', 'Shot on Ektar 100 in Himalaya. Fieldwork Co. brand commission.', 'proof_n1')">
+                    <div class="proof-thumb-wrap">
+                      <img src="img/g_n1.webp" alt="Nature Frame">
+                      <span class="proof-tag">EKTAR 100</span>
+                    </div>
+                    <div class="proof-body">
+                      <h4>First light hike</h4>
+                      <div class="proof-meta">
+                        <span>Himalaya · 36 frames</span>
+                        <span style="color:var(--amber); font-size:11px; font-weight:600;">Review →</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="proof-card" onclick="openModal('Anjuna Lookbook — Proofing Review', 'Shot on Portra 160. 32 fashion selects for Atelier Noor.', 'proof_p1')">
+                    <div class="proof-thumb-wrap">
+                      <img src="img/g_p1.webp" alt="Portrait Frame">
+                      <span class="proof-tag">PORTRA 160</span>
+                    </div>
+                    <div class="proof-body">
+                      <h4>Anjuna lookbook</h4>
+                      <div class="proof-meta">
+                        <span>Goa · 32 frames</span>
+                        <span style="color:var(--amber); font-size:11px; font-weight:600;">Review →</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="proof-card" onclick="openModal('Convocation Procession — Proofing Review', 'Shot on Portra 800. Campus ceremony coverage for IIT Bengaluru.', 'proof_e2')">
+                    <div class="proof-thumb-wrap">
+                      <img src="img/g_e2.webp" alt="Campus Frame">
+                      <span class="proof-tag">PORTRA 800</span>
+                    </div>
+                    <div class="proof-body">
+                      <h4>Convocation day</h4>
+                      <div class="proof-meta">
+                        <span>Bengaluru · 28 frames</span>
+                        <span style="color:var(--amber); font-size:11px; font-weight:600;">Review →</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="proof-card" onclick="openModal('Studio B Still Life — Proofing Review', 'Shot on Ektar 100. Archive stills from Salem HQ Studio B.', 'proof_studio')">
+                    <div class="proof-thumb-wrap">
+                      <img src="img/g_studio.webp" alt="Studio Frame">
+                      <span class="proof-tag">EKTAR 100</span>
+                    </div>
+                    <div class="proof-body">
+                      <h4>Studio B stills</h4>
+                      <div class="proof-meta">
+                        <span>Salem · 18 frames</span>
+                        <span style="color:var(--amber); font-size:11px; font-weight:600;">Review →</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Sidebar Widgets -->
+            <div>
+              <!-- Upcoming Schedule Widget -->
+              <div class="dash-panel">
+                <div class="panel-head">
+                  <h2>Upcoming Schedule</h2>
+                  <button class="panel-action-btn" onclick="openModal('Full Studio Calendar', 'Weekly timetable for Bengaluru, Mumbai, Goa, and Salem teams.', 'calendar')">Calendar →</button>
+                </div>
+
+                <div class="schedule-list">
+                  <div class="schedule-item" onclick="openModal('Rao Wedding Schedule Details', '14th Aug · Udaipur Courtyard · Two Photographers lead by Alex Rivers.', 'sch_rao')">
+                    <div class="schedule-date-box">
+                      <span class="day">14</span>
+                      <span class="month">AUG</span>
+                    </div>
+                    <div class="schedule-info">
+                      <div class="schedule-title">Rao Wedding Pheras</div>
+                      <div class="schedule-desc">Udaipur Courtyard · 2 Shooters</div>
+                    </div>
+                  </div>
+
+                  <div class="schedule-item" onclick="openModal('IIT Convocation Schedule Details', '17th Aug · Main Auditorium Bengaluru · Full Day Coverage.', 'sch_iit')">
+                    <div class="schedule-date-box">
+                      <span class="day">17</span>
+                      <span class="month">AUG</span>
+                    </div>
+                    <div class="schedule-info">
+                      <div class="schedule-title">IIT Convocation Day</div>
+                      <div class="schedule-desc">Main Auditorium · Bengaluru</div>
+                    </div>
+                  </div>
+
+                  <div class="schedule-item" onclick="openModal('Atelier Noor Pickup', '28th Aug · Anjuna studio · Selects review with Priya.', 'sch_goa')">
+                    <div class="schedule-date-box">
+                      <span class="day">28</span>
+                      <span class="month">AUG</span>
+                    </div>
+                    <div class="schedule-info">
+                      <div class="schedule-title">Atelier Noor Selects</div>
+                      <div class="schedule-desc">Anjuna Studio · Goa</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Film Vault Inventory Widget -->
+              <div class="dash-panel">
+                <div class="panel-head">
+                  <h2>Cold Vault Inventory</h2>
+                  <button class="panel-action-btn" onclick="openModal('Film Stock Restock Order', 'Order fresh rolls of Portra 400, Portra 800, and Tri-X 400 from supplier.', 'film_restock')">Restock +</button>
+                </div>
+
+                <div class="inventory-list">
+                  <div onclick="openModal('Kodak Portra 400 Roll Count', '64 rolls remaining in temperature-controlled storage.', 'film_portra400')" style="cursor:pointer;">
+                    <div class="inventory-item-head">
+                      <span class="inventory-name">Kodak Portra 400 (35mm)</span>
+                      <span class="inventory-count">64 rolls left</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                      <div class="progress-bar-fill" style="width: 78%;"></div>
+                    </div>
+                  </div>
+
+                  <div onclick="openModal('Kodak Portra 800 Roll Count', '28 rolls remaining for low-light medium format sessions.', 'film_portra800')" style="cursor:pointer;">
+                    <div class="inventory-item-head">
+                      <span class="inventory-name">Kodak Portra 800 (120mm)</span>
+                      <span class="inventory-count">28 rolls left</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                      <div class="progress-bar-fill" style="width: 42%; background:#63b3ed;"></div>
+                    </div>
+                  </div>
+
+                  <div onclick="openModal('Kodak Tri-X 400 Roll Count', '36 rolls remaining for black &amp; white documentary shoots.', 'film_trix')" style="cursor:pointer;">
+                    <div class="inventory-item-head">
+                      <span class="inventory-name">Kodak Tri-X 400 (B&amp;W)</span>
+                      <span class="inventory-count">36 rolls left</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                      <div class="progress-bar-fill" style="width: 60%; background:#b794f4;"></div>
+                    </div>
+                  </div>
+
+                  <div onclick="openModal('Fujifilm 400 Roll Count', '14 rolls remaining. Low stock warning!', 'film_fuji')" style="cursor:pointer;">
+                    <div class="inventory-item-head">
+                      <span class="inventory-name">Fujifilm 400 (Consumer)</span>
+                      <span class="inventory-count">14 rolls left</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                      <div class="progress-bar-fill" style="width: 25%; background:#e53e3e;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dash-panel">
+                <div class="panel-head">
+                  <h2>Recent Client Inquiries</h2>
+                  <button class="panel-action-btn" onclick="openModal('All Inquiries', 'View all messages from clients.', 'messages')">View All →</button>
+                </div>
+                <div class="schedule-list">
+                  <div class="schedule-item" onclick="openModal('Inquiry: Meera & Rahul', 'Full day wedding coverage inquiry for Nov 2026.', 'inquiry_meera')">
+                    <div class="schedule-date-box" style="background: rgba(104, 211, 145, 0.12); border-color: rgba(104, 211, 145, 0.25);">
+                      <div class="day" style="color: #68d391; font-size: 14px;">NEW</div>
+                    </div>
+                    <div class="schedule-info">
+                      <div class="schedule-title">Meera & Rahul Wedding</div>
+                      <div class="schedule-desc">"Looking for film photography for our Nov..."</div>
+                    </div>
+                  </div>
+                  <div class="schedule-item" onclick="openModal('Inquiry: TechCorp Event', 'Headshots and keynote coverage for 2 days.', 'inquiry_techcorp')">
+                    <div class="schedule-date-box" style="background: rgba(99, 179, 237, 0.12); border-color: rgba(99, 179, 237, 0.25);">
+                      <div class="day" style="color: #63b3ed; font-size: 14px;">NEW</div>
+                    </div>
+                    <div class="schedule-info">
+                      <div class="schedule-title">TechCorp Annual Summit</div>
+                      <div class="schedule-desc">"We need 2 photographers for our event..."</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="overview-lower">
+            <div class="dash-panel">
+              <div class="panel-head">
+                <h2>Equipment Checklist</h2>
+              </div>
+              <div class="inventory-list">
+                <div><div class="inventory-item-head"><span class="inventory-name" style="color: #68d391;">✓ Leica M6 (35mm)</span><span class="inventory-count" style="color: var(--paper-dim);">Cleaned</span></div></div>
+                <div style="margin-top: 8px;"><div class="inventory-item-head"><span class="inventory-name" style="color: #68d391;">✓ Hasselblad 500C/M</span><span class="inventory-count" style="color: var(--paper-dim);">Packed</span></div></div>
+                <div style="margin-top: 8px;"><div class="inventory-item-head"><span class="inventory-name" style="color: var(--paper);">Contax G2 (35mm)</span><span class="inventory-count" style="color: #e53e3e;">In Repair</span></div></div>
+                <div style="margin-top: 8px;"><div class="inventory-item-head"><span class="inventory-name" style="color: #68d391;">✓ Mamiya 7 II (120)</span><span class="inventory-count" style="color: var(--paper-dim);">Ready</span></div></div>
+                <div style="margin-top: 8px;"><div class="inventory-item-head"><span class="inventory-name" style="color: var(--paper);">Flash pack A / B</span><span class="inventory-count" style="color: var(--amber);">Charging</span></div></div>
+              </div>
+            </div>
+            <div class="dash-panel">
+              <div class="panel-head">
+                <h2>Crew on assignment</h2>
+                <button class="panel-action-btn" onclick="openModal('Studio Crew Roster', 'Eleven photographers across Bengaluru, Mumbai, Goa, and Salem HQ.', 'crew_roster')">Roster →</button>
+              </div>
+              <div class="crew-row" onclick="openModal('Alex Rivers — Lead', 'On the Rao wedding in Udaipur this week. Leica M6 + Portra 400.', 'crew_alex')" style="cursor:pointer;">
+                <img src="img/team_01.webp" alt="">
+                <div class="crew-meta">
+                  <strong>Alex Rivers</strong>
+                  <span>Lead · Rao Wedding · Udaipur</span>
+                </div>
+                <span class="status-pill status-retouching">On set</span>
+              </div>
+              <div class="crew-row" onclick="openModal('Maya Chen — Second Shooter', 'Second camera on the Rao pheras coverage.', 'crew_maya')" style="cursor:pointer;">
+                <img src="img/team_02.webp" alt="">
+                <div class="crew-meta">
+                  <strong>Maya Chen</strong>
+                  <span>Second · Pheras coverage · Udaipur</span>
+                </div>
+                <span class="status-pill status-confirmed">Travel</span>
+              </div>
+              <div class="crew-row" onclick="openModal('Kabir Mehta — Corporate', 'Northstar Tech Summit, Mumbai. Tri-X 400.', 'crew_kabir')" style="cursor:pointer;">
+                <img src="img/team_03.webp" alt="">
+                <div class="crew-meta">
+                  <strong>Kabir Mehta</strong>
+                  <span>Corporate · Northstar · Mumbai</span>
+                </div>
+                <span class="status-pill status-in-lab">Lab drop</span>
+              </div>
+              <div class="crew-row" onclick="openModal('Priya Nair — Editorial', 'Atelier Noor lookbook, Anjuna.', 'crew_priya')" style="cursor:pointer;">
+                <img src="img/team_04.webp" alt="">
+                <div class="crew-meta">
+                  <strong>Priya Nair</strong>
+                  <span>Editorial · Atelier Noor · Goa</span>
+                </div>
+                <span class="status-pill status-delivered">Selects in</span>
+              </div>
+            </div>
+
+            <div class="dash-panel">
+              <div class="panel-head">
+                <h2>Album press queue</h2>
+                <button class="panel-action-btn" onclick="openModal('Print Lab Queue', 'Linen albums, hardcover books, and fine-art prints in production.', 'press_queue')">Print lab →</button>
+              </div>
+              <div class="press-row">
+                <div class="press-meta">
+                  <strong>Rao Wedding — 48 page linen</strong>
+                  <span>Gold foil · Ships 22 Aug</span>
+                </div>
+                <span class="status-pill status-retouching">Binding</span>
+              </div>
+              <div class="press-row">
+                <div class="press-meta">
+                  <strong>IIT Leadership — 24 page hardcover</strong>
+                  <span>Campus series · Delivered to client</span>
+                </div>
+                <span class="status-pill status-delivered">Shipped</span>
+              </div>
+              <div class="press-row">
+                <div class="press-meta">
+                  <strong>Northstar Summit — recap book</strong>
+                  <span>40 pages · Awaiting scan lock</span>
+                </div>
+                <span class="status-pill status-in-lab">Waiting</span>
+              </div>
+              <div class="press-row">
+                <div class="press-meta">
+                  <strong>Himalaya — 12 print edition</strong>
+                  <span>Ektar 100 · Fibre prints</span>
+                </div>
+                <span class="status-pill status-confirmed">Queued</span>
+              </div>
+            </div>
+
+            <div class="dash-panel">
+              <div class="panel-head">
+                <h2>Invoices this month</h2>
+                <button class="panel-action-btn" onclick="openModal('Accounts Receivable', 'Deposits, balances, and overdue studio invoices.', 'invoices')">Accounts →</button>
+              </div>
+              <div class="invoice-row">
+                <div class="invoice-meta">
+                  <strong>INV-2041 · Rao Wedding</strong>
+                  <span>Balance after 40% deposit</span>
+                </div>
+                <span style="font-family:'JetBrains Mono'; font-size:12px; color:var(--amber);">₹2,40,000</span>
+              </div>
+              <div class="invoice-row">
+                <div class="invoice-meta">
+                  <strong>INV-2038 · Northstar Co.</strong>
+                  <span>Corporate coverage · Due 20 Aug</span>
+                </div>
+                <span style="font-family:'JetBrains Mono'; font-size:12px; color:var(--paper);">₹1,15,000</span>
+              </div>
+              <div class="invoice-row">
+                <div class="invoice-meta">
+                  <strong>INV-2033 · Fieldwork Co.</strong>
+                  <span>Expedition retainer · Paid</span>
+                </div>
+                <span style="font-family:'JetBrains Mono'; font-size:12px; color:#68d391;">₹85,000</span>
+              </div>
+              <div class="invoice-row">
+                <div class="invoice-meta">
+                  <strong>INV-2029 · IIT Bengaluru</strong>
+                  <span>Seminar album · Cleared</span>
+                </div>
+                <span style="font-family:'JetBrains Mono'; font-size:12px; color:#68d391;">₹45,000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>Studio houses</h2>
+              <button class="panel-action-btn" onclick="openModal('Studio Locations', 'Bengaluru, Mumbai, Goa, and Salem HQ — staffed rooms, darkrooms, and sitting spaces.', 'studios')">All studios →</button>
+            </div>
+            <div class="city-grid">
+              <div class="city-card" onclick="openModal('Bengaluru Studio', 'Sitting rooms and campus coverage base. Next: IIT convocation 17 Aug.', 'studio_blr')">
+                <img src="img/about_studio.webp" alt="">
+                <div>
+                  <strong>Bengaluru</strong>
+                  <span>3 crew · 2 sittings this week</span>
+                </div>
+              </div>
+              <div class="city-card" onclick="openModal('Mumbai Studio', 'Corporate and editorial desk. Northstar summit in lab.', 'studio_mum')">
+                <img src="img/value_studio.webp" alt="">
+                <div>
+                  <strong>Mumbai</strong>
+                  <span>2 crew · 1 summit in lab</span>
+                </div>
+              </div>
+              <div class="city-card" onclick="openModal('Goa Studio', 'Anjuna editorial base. Atelier Noor lookbook in retouching.', 'studio_goa')">
+                <img src="img/cta_work.webp" alt="">
+                <div>
+                  <strong>Goa</strong>
+                  <span>2 crew · lookbook in retouch</span>
+                </div>
+              </div>
+              <div class="city-card" onclick="openModal('Salem HQ', 'Darkroom, cold vault, and Studio B. 142 rolls in process.', 'studio_salem')">
+                <img src="img/value_darkroom.webp" alt="">
+                <div>
+                  <strong>Salem HQ</strong>
+                  <span>Darkroom · 142 rolls in vault</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CLIENT PORTAL VIEW -->
+        <div id="view-client" style="display: none;">
+          <div class="dash-welcome">
+            <div>
+              <span class="eyebrow">Client Portal</span>
+              <h1>Welcome back, Riya &amp; Arjun.</h1>
+              <div class="dash-subtext">Your 48-page linen wedding album scans and high-resolution proofs are ready for download.</div>
+            </div>
+            <button class="btn btn-solid" style="padding: 9px 18px; font-size: 13px;" onclick="openModal('Download Full Album Archive', '4.2 GB archive containing all high-resolution scans and print-ready TIFFs.', 'download_client')"><span>Download All Proofs (4.2 GB)</span></button>
+          </div>
+
+          <!-- Client KPI Stats -->
+          <div class="kpi-grid">
+            <div class="kpi-card" onclick="openModal('My Photo Collections', '3 album sets available for review and print ordering.', 'client_albums')">
+              <div class="kpi-header">
+                <span class="kpi-title">Active Albums</span>
+                <div class="kpi-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                </div>
+              </div>
+              <div class="kpi-value">3 Sets</div>
+              <div class="kpi-footer">
+                <span style="color:var(--amber); font-weight:600;">Udaipur Wedding</span>
+                <span class="trend-label">· Pre-wedding &amp; Pheras</span>
+              </div>
+            </div>
+
+            <div class="kpi-card" onclick="openModal('Film Rolls Developed Status', '24 Portra 400 film rolls developed and scanned in studio.', 'client_rolls')">
+              <div class="kpi-header">
+                <span class="kpi-title">Film Rolls Developed</span>
+                <div class="kpi-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+              </div>
+              <div class="kpi-value">24 Rolls</div>
+              <div class="kpi-footer">
+                <span class="trend-up">Portra 400 Film</span>
+                <span class="trend-label">· 100% scanned</span>
+              </div>
+            </div>
+
+            <div class="kpi-card" onclick="openModal('Linen Print Album Status', '86 selected frames undergoing fine art printing in linen cover.', 'client_prints')">
+              <div class="kpi-header">
+                <span class="kpi-title">High-Res Prints</span>
+                <div class="kpi-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                </div>
+              </div>
+              <div class="kpi-value">86 Selected</div>
+              <div class="kpi-footer">
+                <span style="color:#68d391; font-weight:600;">Linen Album</span>
+                <span class="trend-label">· Ships in 5 days</span>
+              </div>
+            </div>
+
+            <div class="kpi-card" onclick="openModal('Scheduled Studio Sitting', 'Next appointment on 12th September 2026 at Bengaluru Studio B.', 'client_sitting')">
+              <div class="kpi-header">
+                <span class="kpi-title">Next Sitting</span>
+                <div class="kpi-icon-wrap">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </div>
+              </div>
+              <div class="kpi-value">12 Sep</div>
+              <div class="kpi-footer">
+                <span style="color:var(--amber); font-weight:600;">Studio B</span>
+                <span class="trend-label">· Bengaluru Studio</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Client Albums Panel -->
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>Your Photo Collections</h2>
+              <button class="panel-action-btn" onclick="openModal('Order Custom Prints', 'Choose fine art linen or archival paper prints for your home.', 'order_prints')">Order Additional Prints →</button>
+            </div>
+
+            <div class="proof-grid">
+              <div class="proof-card" onclick="openModal('Udaipur Wedding Collection', '48 pages of ceremony, pheras, and dusk portraits.', 'album_udaipur')">
+                <div class="proof-thumb-wrap">
+                  <img src="img/g_w1.webp" alt="Wedding Collection">
+                  <span class="proof-tag">48 PAGES</span>
+                </div>
+                <div class="proof-body">
+                  <h4>Udaipur Wedding Ceremony</h4>
+                  <div class="proof-meta">
+                    <span>Full High-Res Proofs</span>
+                    <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="proof-card" onclick="openModal('Assagao Sunset Sitting', '24 pages of destination portraits in Goa.', 'album_goa')">
+                <div class="proof-thumb-wrap">
+                  <img src="img/g_w2.webp" alt="Goa Collection">
+                  <span class="proof-tag">24 PAGES</span>
+                </div>
+                <div class="proof-body">
+                  <h4>Assagao Sunset Sitting</h4>
+                  <div class="proof-meta">
+                    <span>Digital Backup Scans</span>
+                    <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="proof-card" onclick="openModal('Studio Still Life Session', '18 prints of still life and equipment art.', 'album_studio')">
+                <div class="proof-thumb-wrap">
+                  <img src="img/g_editorial_set.webp" alt="Studio Session">
+                  <span class="proof-tag">18 PRINTS</span>
+                </div>
+                <div class="proof-body">
+                  <h4>Studio Still Life Session</h4>
+                  <div class="proof-meta">
+                    <span>Selected Darkroom Prints</span>
+                    <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-grid-2col is-flush">
+            <div class="dash-panel">
+              <div class="panel-head">
+                <h2>Album production</h2>
+                <button class="panel-action-btn" onclick="openModal('Linen Print Album Status', '86 selected frames undergoing fine art printing in linen cover.', 'client_prints')">Track album →</button>
+              </div>
+              <div class="press-row">
+                <div class="press-meta">
+                  <strong>Ceremony linen book — 48 pages</strong>
+                  <span>Gold foil cover · Binding this week</span>
+                </div>
+                <span class="status-pill status-retouching">Binding</span>
+              </div>
+              <div class="press-row">
+                <div class="press-meta">
+                  <strong>Pheras at dusk — 12 fibre prints</strong>
+                  <span>Portra 400 · Darkroom, Salem HQ</span>
+                </div>
+                <span class="status-pill status-in-lab">Printing</span>
+              </div>
+              <div class="press-row">
+                <div class="press-meta">
+                  <strong>Assagao sitting — digital vault</strong>
+                  <span>24 scans ready to download</span>
+                </div>
+                <span class="status-pill status-delivered">Ready</span>
+              </div>
+              <div class="press-row">
+                <div class="press-meta">
+                  <strong>Parent album — 24 pages</strong>
+                  <span>Duplicate book · Queued after ceremony</span>
+                </div>
+                <span class="status-pill status-confirmed">Queued</span>
+              </div>
+            </div>
+            <div>
+              <div class="dash-panel">
+                <div class="panel-head">
+                  <h2>Next with the studio</h2>
+                </div>
+                <div class="schedule-list">
+                  <div class="schedule-item">
+                    <div class="schedule-date-box">
+                      <span class="day">22</span>
+                      <span class="month">AUG</span>
+                    </div>
+                    <div class="schedule-info">
+                      <div class="schedule-title">Album proof call</div>
+                      <div class="schedule-desc">Video · 30 min with Alex</div>
+                    </div>
+                  </div>
+                  <div class="schedule-item">
+                    <div class="schedule-date-box">
+                      <span class="day">12</span>
+                      <span class="month">SEP</span>
+                    </div>
+                    <div class="schedule-info">
+                      <div class="schedule-title">Studio B sitting</div>
+                      <div class="schedule-desc">Bengaluru · family portraits</div>
+                    </div>
+                  </div>
+                  <div class="schedule-item">
+                    <div class="schedule-date-box">
+                      <span class="day">28</span>
+                      <span class="month">SEP</span>
+                    </div>
+                    <div class="schedule-info">
+                      <div class="schedule-title">Linen book courier</div>
+                      <div class="schedule-desc">Udaipur address on file</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End tab-overview -->
+
+      <!-- CLIENT PROOFS TAB -->
+      <div id="tab-proofs" class="tab-view" style="display: none;">
+        <div class="dash-welcome">
+          <div>
+            <span class="eyebrow" style="color: var(--amber);">Core Workspace</span>
+            <h1>Client Proofs</h1>
+            <div class="dash-subtext">Active client proofing vaults and digital delivery statuses.</div>
+          </div>
+          <button class="btn btn-solid" style="padding: 9px 18px; font-size: 13px;" onclick="openModal('Client Proofs', 'Udaipur Wedding & Corporate Event Scans', 'proofs')"><span>View All 8 Proof Sets</span></button>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card" onclick="openModal('Udaipur Wedding Ceremony', '48 frames · Portra 400 · Retouching', 'album_udaipur')">
+            <div class="kpi-header">
+              <span class="kpi-title">Udaipur Wedding</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">Review</div>
+            </div>
+            <div class="kpi-value">48 Frames</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">Portra 400 Film</span>
+              <span class="trend-label">· Scans ready</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Northstar Summit — Mumbai', '24 frames · Tri-X 400 · In Lab', 'client_rolls')">
+            <div class="kpi-header">
+              <span class="kpi-title">Northstar Summit</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:#63b3ed;">Scanning</div>
+            </div>
+            <div class="kpi-value">24 Frames</div>
+            <div class="kpi-footer">
+              <span class="trend-up">Tri-X 400 Film</span>
+              <span class="trend-label">· Development in progress</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Himalaya Expedition — Fieldwork Co.', '36 frames · Ektar 100 · Confirmed', 'client_prints')">
+            <div class="kpi-header">
+              <span class="kpi-title">Himalaya Expedition</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:#68d391;">Ready</div>
+            </div>
+            <div class="kpi-value">36 Frames</div>
+            <div class="kpi-footer">
+              <span style="color:#68d391; font-weight:600;">Ektar 100 Film</span>
+              <span class="trend-label">· Client approved</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Assagao Sunset Sitting', '24 frames · Destination Goa', 'album_goa')">
+            <div class="kpi-header">
+              <span class="kpi-title">Goa Sunset Session</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:#68d391;">Ready</div>
+            </div>
+            <div class="kpi-value">24 Frames</div>
+            <div class="kpi-footer">
+              <span style="color:#68d391; font-weight:600;">Portra 400 Film</span>
+              <span class="trend-label">· Scanning complete</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-panel" style="margin-top: 24px;">
+          <div class="panel-head">
+            <h2>Recent Proof Collections</h2>
+          </div>
+          <div class="proof-grid">
+            <div class="proof-card" onclick="openModal('Udaipur Wedding Ceremony', '48 frames · Portra 400 · Retouching', 'album_udaipur')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_w1.webp" alt="Udaipur Wedding">
+                <span class="proof-tag">48 PAGES</span>
+              </div>
+              <div class="proof-body">
+                <h4>Udaipur Wedding Ceremony</h4>
+                <div class="proof-meta">
+                  <span>Full High-Res Proofs</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Assagao Sunset Sitting', '24 frames · Destination Goa', 'album_goa')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_w2.webp" alt="Goa Collection">
+                <span class="proof-tag">24 PAGES</span>
+              </div>
+              <div class="proof-body">
+                <h4>Assagao Sunset Sitting</h4>
+                <div class="proof-meta">
+                  <span>Digital Backup Scans</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Himalaya Expedition — Fieldwork Co.', '36 frames · Ektar 100 · Confirmed', 'client_prints')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_n1.webp" alt="Himalaya Campaign">
+                <span class="proof-tag">36 PAGES</span>
+              </div>
+              <div class="proof-body">
+                <h4>Himalaya Outdoor Campaign</h4>
+                <div class="proof-meta">
+                  <span>Approved Deliverables</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Studio Still Life Session', '18 prints of still life and equipment art.', 'album_studio')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_editorial_set.webp" alt="Studio Session">
+                <span class="proof-tag">18 PRINTS</span>
+              </div>
+              <div class="proof-body">
+                <h4>Mumbai Editorial Sitting</h4>
+                <div class="proof-meta">
+                  <span>Fine Art Scans</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Northstar Summit — Mumbai', '24 frames · Tri-X 400 · In Lab', 'client_rolls')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_e1.webp" alt="Summit">
+                <span class="proof-tag">24 FRAMES</span>
+              </div>
+              <div class="proof-body">
+                <h4>Northstar Summit Floor</h4>
+                <div class="proof-meta">
+                  <span>Tri-X 400 · In lab scan</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('IIT Leadership Album Status', 'Delivered online gallery and 24-page hardcover album.', 'iit_details')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_e2.webp" alt="Campus">
+                <span class="proof-tag">28 FRAMES</span>
+              </div>
+              <div class="proof-body">
+                <h4>IIT Convocation Day</h4>
+                <div class="proof-meta">
+                  <span>Portra 800 · Delivered</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-grid-2col is-flush">
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>Delivery status</h2>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Set</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th>Due</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Rao Wedding · Udaipur</td>
+                    <td>Portra 400</td>
+                    <td><span class="status-pill status-retouching">Retouching</span></td>
+                    <td>22 Aug</td>
+                  </tr>
+                  <tr>
+                    <td>Northstar · Mumbai</td>
+                    <td>Tri-X 400</td>
+                    <td><span class="status-pill status-in-lab">In lab</span></td>
+                    <td>19 Aug</td>
+                  </tr>
+                  <tr>
+                    <td>Himalaya · Fieldwork</td>
+                    <td>Ektar 100</td>
+                    <td><span class="status-pill status-confirmed">Approved</span></td>
+                    <td>01 Sep</td>
+                  </tr>
+                  <tr>
+                    <td>IIT Bengaluru</td>
+                    <td>Portra 800</td>
+                    <td><span class="status-pill status-delivered">Delivered</span></td>
+                    <td>Done</td>
+                  </tr>
+                  <tr>
+                    <td>Atelier Noor · Goa</td>
+                    <td>Portra 160</td>
+                    <td><span class="status-pill status-retouching">Selects</span></td>
+                    <td>28 Aug</td>
+                  </tr>
+                  <tr>
+                    <td>Studio B stills</td>
+                    <td>Ektar 100</td>
+                    <td><span class="status-pill status-in-lab">Scanning</span></td>
+                    <td>24 Aug</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>Client notes</h2>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Riya &amp; Arjun</strong>
+                <span>Prefer warm dusk frames in the linen book.</span>
+              </div>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Northstar Co.</strong>
+                <span>Need B&amp;W keynotes by Friday recap.</span>
+              </div>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Fieldwork Co.</strong>
+                <span>Hold Himalaya until colour grade sign-off.</span>
+              </div>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Atelier Noor</strong>
+                <span>Lookbook crop 4:5 for Instagram.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SHOOT CALENDAR TAB -->
+      <div id="tab-calendar" class="tab-view" style="display: none;">
+        <div class="dash-welcome">
+          <div>
+            <span class="eyebrow" style="color: var(--amber);">Core Workspace</span>
+            <h1>Shoot Calendar</h1>
+            <div class="dash-subtext">Schedule of weddings, functions, and sittings across India branches.</div>
+          </div>
+          <button class="btn btn-solid" style="padding: 9px 18px; font-size: 13px;" onclick="openModal('Record New Booking', 'Form to add a new shoot booking to the schedule.', 'new_booking')"><span>+ Add New Shoot</span></button>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card" onclick="openModal('Udaipur Wedding Schedule', 'Udaipur Palace Courtyard', 'calendar')">
+            <div class="kpi-header">
+              <span class="kpi-title">Rao Wedding</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">14 Aug</div>
+            </div>
+            <div class="kpi-value">Udaipur</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">Palace Courtyard</span>
+              <span class="trend-label">· Full Day</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('IIT Bengaluru Schedule', 'Main Auditorium', 'calendar')">
+            <div class="kpi-header">
+              <span class="kpi-title">IIT Bengaluru</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">17 Aug</div>
+            </div>
+            <div class="kpi-value">Bengaluru</div>
+            <div class="kpi-footer">
+              <span class="trend-up">Main Auditorium</span>
+              <span class="trend-label">· Convocation Coverage</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Studio B Sitting Schedule', 'Anniversary Session', 'calendar')">
+            <div class="kpi-header">
+              <span class="kpi-title">Portrait Sitting</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">22 Aug</div>
+            </div>
+            <div class="kpi-value">Studio B</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">Stackly HQ Salem</span>
+              <span class="trend-label">· 2 Hour Sitting</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Loomwork Seminar Schedule', 'Panaji Conference Hall', 'calendar')">
+            <div class="kpi-header">
+              <span class="kpi-title">Loomwork Seminar</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">04 Sep</div>
+            </div>
+            <div class="kpi-value">Panaji</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">Goa Conference Room</span>
+              <span class="trend-label">· Half Day</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-panel" style="margin-top: 24px;">
+          <div class="panel-head">
+            <h2>Upcoming Bookings</h2>
+          </div>
+          <div class="proof-grid">
+            <div class="proof-card" onclick="openModal('Loomwork Seminar Schedule', 'Panaji Conference Hall', 'calendar')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_e1.webp" alt="Goa Seminar">
+                <span class="proof-tag">04 SEP</span>
+              </div>
+              <div class="proof-body">
+                <h4>Loomwork Seminar — Goa</h4>
+                <div class="proof-meta">
+                  <span>Panaji Conference Hall</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Wedding Reception — Mumbai', 'Hotel Taj Courtyard', 'calendar')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_w1.webp" alt="Wedding Reception">
+                <span class="proof-tag">12 SEP</span>
+              </div>
+              <div class="proof-body">
+                <h4>Wedding Reception — Mumbai</h4>
+                <div class="proof-meta">
+                  <span>Taj Lands End Ballroom</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Corporate Editorial — Bengaluru HQ', 'Innovations Stage', 'calendar')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_editorial_set.webp" alt="Corporate Session">
+                <span class="proof-tag">18 SEP</span>
+              </div>
+              <div class="proof-body">
+                <h4>Product Campaign — Bengaluru</h4>
+                <div class="proof-meta">
+                  <span>Executive Headshots</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Rao Wedding Pheras', '14 Aug · Udaipur', 'calendar')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_w3.webp" alt="Pheras">
+                <span class="proof-tag">14 AUG</span>
+              </div>
+              <div class="proof-body">
+                <h4>Rao Wedding Pheras</h4>
+                <div class="proof-meta">
+                  <span>Udaipur Courtyard · 2 shooters</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('IIT Convocation Day', '17 Aug · Bengaluru', 'calendar')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_e3.webp" alt="Convocation">
+                <span class="proof-tag">17 AUG</span>
+              </div>
+              <div class="proof-body">
+                <h4>IIT Convocation Day</h4>
+                <div class="proof-meta">
+                  <span>Main Auditorium · Bengaluru</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Atelier Noor Pickup', '28 Aug · Goa', 'calendar')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_p1.webp" alt="Goa editorial">
+                <span class="proof-tag">28 AUG</span>
+              </div>
+              <div class="proof-body">
+                <h4>Atelier Noor Selects</h4>
+                <div class="proof-meta">
+                  <span>Anjuna Studio · Goa</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">View →</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-grid-2col is-flush">
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>Week at a glance</h2>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Shoot</th>
+                    <th>City</th>
+                    <th>Crew</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>14 Aug</td>
+                    <td>Rao Wedding Pheras</td>
+                    <td>Udaipur</td>
+                    <td>Alex, Maya</td>
+                  </tr>
+                  <tr>
+                    <td>17 Aug</td>
+                    <td>IIT Convocation</td>
+                    <td>Bengaluru</td>
+                    <td>Kabir + 1</td>
+                  </tr>
+                  <tr>
+                    <td>22 Aug</td>
+                    <td>Studio B portraits</td>
+                    <td>Salem HQ</td>
+                    <td>Priya</td>
+                  </tr>
+                  <tr>
+                    <td>28 Aug</td>
+                    <td>Noor selects review</td>
+                    <td>Goa</td>
+                    <td>Priya</td>
+                  </tr>
+                  <tr>
+                    <td>04 Sep</td>
+                    <td>Loomwork seminar</td>
+                    <td>Panaji</td>
+                    <td>Kabir</td>
+                  </tr>
+                  <tr>
+                    <td>12 Sep</td>
+                    <td>Mumbai reception</td>
+                    <td>Mumbai</td>
+                    <td>Alex, Maya</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>Holds &amp; travel</h2>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Udaipur travel</strong>
+                <span>Alex &amp; Maya · 13–15 Aug</span>
+              </div>
+              <span class="status-pill status-retouching">Live</span>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Bengaluru campus</strong>
+                <span>IIT kit packed · 16 Aug night train</span>
+              </div>
+              <span class="status-pill status-confirmed">Ready</span>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Goa hold</strong>
+                <span>Anjuna room booked 27–29 Aug</span>
+              </div>
+              <span class="status-pill status-in-lab">Hold</span>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Salem HQ darkroom</strong>
+                <span>Studio B sitting 22 Aug · 2 hours</span>
+              </div>
+              <span class="status-pill status-delivered">HQ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICES & RATES TAB -->
+      <div id="tab-services" class="tab-view" style="display: none;">
+        <div class="dash-welcome">
+          <div>
+            <span class="eyebrow" style="color: var(--amber);">Core Workspace</span>
+            <h1>Services &amp; Rates</h1>
+            <div class="dash-subtext">Standard packages, darkroom processes, and fine art pricing list.</div>
+          </div>
+          <button class="btn btn-solid" style="padding: 9px 18px; font-size: 13px;" onclick="openModal('Custom Quote Request', 'Request customized shoot rates', 'services')"><span>Request Custom Quote</span></button>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card" onclick="openModal('Wedding Packages', '₹85,000 Starting Rate', 'services')">
+            <div class="kpi-header">
+              <span class="kpi-title">Wedding Coverage</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">₹85K</div>
+            </div>
+            <div class="kpi-value">Wedding</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">Film &amp; Digital</span>
+              <span class="trend-label">· Linen Book</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Corporate Packages', '₹28,000 Starting Rate', 'services')">
+            <div class="kpi-header">
+              <span class="kpi-title">Office Function</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">₹28K</div>
+            </div>
+            <div class="kpi-value">Corporate</div>
+            <div class="kpi-footer">
+              <span class="trend-up">Press-ready Stills</span>
+              <span class="trend-label">· Half/Full Day</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Studio Packages', '₹12,000 Starting Rate', 'services')">
+            <div class="kpi-header">
+              <span class="kpi-title">Portrait Sitting</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">₹12K</div>
+            </div>
+            <div class="kpi-value">Studio</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">2 Hours Studio B</span>
+              <span class="trend-label">· 20 Film Scans</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Nature &amp; Travel Packages', '₹42,000 Starting Rate', 'services')">
+            <div class="kpi-header">
+              <span class="kpi-title">Nature / Travel</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">₹42K</div>
+            </div>
+            <div class="kpi-value">Editorial</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">Ektar 100</span>
+              <span class="trend-label">· Print edition</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-panel" style="margin-top: 24px;">
+          <div class="panel-head">
+            <h2>Package catalogue</h2>
+          </div>
+          <div class="proof-grid">
+            <div class="proof-card" onclick="openModal('Wedding Packages', '₹85,000 Starting Rate', 'services')">
+              <div class="proof-thumb-wrap">
+                <img src="img/svc_wedding.webp" alt="Wedding">
+                <span class="proof-tag">₹85,000</span>
+              </div>
+              <div class="proof-body">
+                <h4>Marriage — full day</h4>
+                <div class="proof-meta">
+                  <span>Two shooters · linen album</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Corporate Packages', '₹28,000 Starting Rate', 'services')">
+              <div class="proof-thumb-wrap">
+                <img src="img/svc_office.webp" alt="Office">
+                <span class="proof-tag">₹28,000</span>
+              </div>
+              <div class="proof-body">
+                <h4>Office / corporate</h4>
+                <div class="proof-meta">
+                  <span>Half or full day · press stills</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Seminar / Class Packages', '₹15,000 Starting Rate', 'services')">
+              <div class="proof-thumb-wrap">
+                <img src="img/svc_seminar.webp" alt="Seminar">
+                <span class="proof-tag">₹15,000</span>
+              </div>
+              <div class="proof-body">
+                <h4>Seminar / class</h4>
+                <div class="proof-meta">
+                  <span>Keynotes, recaps, stage</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('College Event Packages', '₹22,000 Starting Rate', 'services')">
+              <div class="proof-thumb-wrap">
+                <img src="img/svc_college.webp" alt="College">
+                <span class="proof-tag">₹22,000</span>
+              </div>
+              <div class="proof-body">
+                <h4>Campus / college</h4>
+                <div class="proof-meta">
+                  <span>Convocation and fests</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Studio Packages', '₹12,000 Starting Rate', 'services')">
+              <div class="proof-thumb-wrap">
+                <img src="img/svc_family.webp" alt="Portrait">
+                <span class="proof-tag">₹12,000</span>
+              </div>
+              <div class="proof-body">
+                <h4>Studio B sitting</h4>
+                <div class="proof-meta">
+                  <span>2 hours · 20 film scans</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Nature &amp; Travel Packages', '₹42,000 Starting Rate', 'services')">
+              <div class="proof-thumb-wrap">
+                <img src="img/svc_nature.webp" alt="Nature">
+                <span class="proof-tag">₹42,000</span>
+              </div>
+              <div class="proof-body">
+                <h4>Nature / travel edit</h4>
+                <div class="proof-meta">
+                  <span>Ektar 100 · print edition</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-grid-2col is-flush">
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>What each package includes</h2>
+            </div>
+            <div class="stack-fill" style="overflow-x:auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Package</th>
+                    <th>Film</th>
+                    <th>Crew</th>
+                    <th>Deliverable</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Marriage full day</td>
+                    <td>Portra 400 · 36 rolls</td>
+                    <td>2</td>
+                    <td>48-page linen</td>
+                  </tr>
+                  <tr>
+                    <td>Office / corporate</td>
+                    <td>Tri-X or Portra · 12</td>
+                    <td>1–2</td>
+                    <td>Press gallery</td>
+                  </tr>
+                  <tr>
+                    <td>Seminar / class</td>
+                    <td>Portra 800 · 8</td>
+                    <td>1</td>
+                    <td>Recap set</td>
+                  </tr>
+                  <tr>
+                    <td>Campus / college</td>
+                    <td>Portra 400 · 16</td>
+                    <td>2</td>
+                    <td>Hardcover 24</td>
+                  </tr>
+                  <tr>
+                    <td>Studio B sitting</td>
+                    <td>Portra 160 · 4</td>
+                    <td>1</td>
+                    <td>20 scans</td>
+                  </tr>
+                  <tr>
+                    <td>Nature / travel</td>
+                    <td>Ektar 100 · 18</td>
+                    <td>1–2</td>
+                    <td>12 print edition</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>Add-ons</h2>
+            </div>
+            <div class="stack-fill">
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Second shooter</strong>
+                <span>Full day · extra camera + 12 rolls</span>
+              </div>
+              <span style="font-family:'JetBrains Mono'; font-size:12px; color:var(--amber);">₹18,000</span>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Parent linen book</strong>
+                <span>24-page duplicate album</span>
+              </div>
+              <span style="font-family:'JetBrains Mono'; font-size:12px; color:var(--amber);">₹22,000</span>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Fibre print set</strong>
+                <span>12 darkroom prints, 8×10</span>
+              </div>
+              <span style="font-family:'JetBrains Mono'; font-size:12px; color:var(--amber);">₹9,500</span>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Travel day</strong>
+                <span>Outside Bengaluru / Mumbai / Goa</span>
+              </div>
+              <span style="font-family:'JetBrains Mono'; font-size:12px; color:var(--amber);">₹12,000</span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILM VAULT TAB -->
+      <div id="tab-film" class="tab-view" style="display: none;">
+        <div class="dash-welcome">
+          <div>
+            <span class="eyebrow" style="color: var(--amber);">Studio Operations</span>
+            <h1>Film Vault</h1>
+            <div class="dash-subtext">Cold-stored medium and 35mm formats developed in darkroom.</div>
+          </div>
+          <button class="btn btn-solid" style="padding: 9px 18px; font-size: 13px;" onclick="openModal('Film Restock', 'Request roll replenishment', 'film')"><span>Order Restock Rolls</span></button>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card" onclick="openModal('Portra 400 Rolls', 'Kodak color negative stock', 'film')">
+            <div class="kpi-header">
+              <span class="kpi-title">Kodak Portra 400</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">62 Rolls</div>
+            </div>
+            <div class="kpi-value">Color Negative</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">120 Format</span>
+              <span class="trend-label">· Cold storage #1</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Tri-X 400 Rolls', 'Kodak B&amp;W stock', 'film')">
+            <div class="kpi-header">
+              <span class="kpi-title">Kodak Tri-X 400</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">45 Rolls</div>
+            </div>
+            <div class="kpi-value">B&amp;W Negative</div>
+            <div class="kpi-footer">
+              <span class="trend-up">35mm Format</span>
+              <span class="trend-label">· Cold storage #2</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Ektar 100 Rolls', 'Kodak slide/saturated color stock', 'film')">
+            <div class="kpi-header">
+              <span class="kpi-title">Kodak Ektar 100</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">20 Rolls</div>
+            </div>
+            <div class="kpi-value">Archival Landscape</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">120 Format</span>
+              <span class="trend-label">· Cold storage #1</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Kodak Portra 800 Roll Count', '28 rolls remaining for low-light medium format sessions.', 'film_portra800')">
+            <div class="kpi-header">
+              <span class="kpi-title">Kodak Portra 800</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">28 Rolls</div>
+            </div>
+            <div class="kpi-value">Low Light</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">120 Format</span>
+              <span class="trend-label">· Cold storage #2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-panel" style="margin-top: 24px;">
+          <div class="panel-head">
+            <h2>Storage &amp; processing vault</h2>
+          </div>
+          <div class="proof-grid">
+            <div class="proof-card" onclick="openModal('Kodak Portra 400 Roll Count', '64 rolls remaining in temperature-controlled storage.', 'film_portra400')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_w1.webp" alt="Portra 400">
+                <span class="proof-tag">64 ROLLS</span>
+              </div>
+              <div class="proof-body">
+                <h4>Kodak Portra 400 (35mm)</h4>
+                <div class="proof-meta">
+                  <span>Wedding &amp; portrait stock</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Kodak Portra 800 Roll Count', '28 rolls remaining for low-light medium format sessions.', 'film_portra800')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_editorial_set.webp" alt="Portra 800">
+                <span class="proof-tag">28 ROLLS</span>
+              </div>
+              <div class="proof-body">
+                <h4>Kodak Portra 800 (120)</h4>
+                <div class="proof-meta">
+                  <span>Low-light special emulsion</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Kodak Tri-X 400 Roll Count', '36 rolls remaining for black &amp; white documentary shoots.', 'film_trix')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_e1.webp" alt="Tri-X">
+                <span class="proof-tag">36 ROLLS</span>
+              </div>
+              <div class="proof-body">
+                <h4>Kodak Tri-X 400 (B&amp;W)</h4>
+                <div class="proof-meta">
+                  <span>Corporate &amp; documentary</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Ektar 100 Rolls', 'Kodak slide/saturated color stock', 'film')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_n1.webp" alt="Ektar">
+                <span class="proof-tag">20 ROLLS</span>
+              </div>
+              <div class="proof-body">
+                <h4>Kodak Ektar 100 (120)</h4>
+                <div class="proof-meta">
+                  <span>Landscape &amp; travel</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Fujifilm 400 Roll Count', '14 rolls remaining. Low stock warning!', 'film_fuji')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_p1.webp" alt="Fuji">
+                <span class="proof-tag">14 ROLLS</span>
+              </div>
+              <div class="proof-body">
+                <h4>Fujifilm 400 (consumer)</h4>
+                <div class="proof-meta">
+                  <span>Low stock · restock this week</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Lab Processing Pipeline', 'Status of Portra 400, Portra 800, and Tri-X 400 rolls in darkroom development.', 'lab_processing')">
+              <div class="proof-thumb-wrap">
+                <img src="img/value_darkroom.webp" alt="Darkroom">
+                <span class="proof-tag">142 IN LAB</span>
+              </div>
+              <div class="proof-body">
+                <h4>Darkroom queue — Salem HQ</h4>
+                <div class="proof-meta">
+                  <span>86% scanned this month</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Details →</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-grid-2col is-flush">
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>Rolls in process</h2>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Job</th>
+                    <th>Stock</th>
+                    <th>Rolls</th>
+                    <th>Stage</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Rao Wedding</td>
+                    <td>Portra 400</td>
+                    <td>36</td>
+                    <td><span class="status-pill status-retouching">Scan lock</span></td>
+                  </tr>
+                  <tr>
+                    <td>Northstar Summit</td>
+                    <td>Tri-X 400</td>
+                    <td>12</td>
+                    <td><span class="status-pill status-in-lab">Developer</span></td>
+                  </tr>
+                  <tr>
+                    <td>Himalaya Expedition</td>
+                    <td>Ektar 100</td>
+                    <td>18</td>
+                    <td><span class="status-pill status-confirmed">Unshot</span></td>
+                  </tr>
+                  <tr>
+                    <td>IIT Leadership</td>
+                    <td>Portra 800</td>
+                    <td>8</td>
+                    <td><span class="status-pill status-delivered">Archived</span></td>
+                  </tr>
+                  <tr>
+                    <td>Atelier Noor</td>
+                    <td>Portra 160</td>
+                    <td>10</td>
+                    <td><span class="status-pill status-retouching">Selects</span></td>
+                  </tr>
+                  <tr>
+                    <td>Studio B stills</td>
+                    <td>Ektar 100</td>
+                    <td>6</td>
+                    <td><span class="status-pill status-in-lab">Scanner</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>Vault conditions</h2>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Cold vault #1</strong>
+                <span>Portra / Ektar · 12°C · Salem HQ</span>
+              </div>
+              <span class="status-pill status-delivered">Stable</span>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Cold vault #2</strong>
+                <span>Tri-X / Portra 800 · 11°C</span>
+              </div>
+              <span class="status-pill status-delivered">Stable</span>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Chemistry</strong>
+                <span>C-41 batch mixed 12 Aug · 4 days left</span>
+              </div>
+              <span class="status-pill status-retouching">Watch</span>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Supplier</strong>
+                <span>Kodak India partner · Fuji restock due</span>
+              </div>
+              <span class="status-pill status-in-lab">Order</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INQUIRIES TAB -->
+      <div id="tab-inquiries" class="tab-view" style="display: none;">
+        <div class="dash-welcome">
+          <div>
+            <span class="eyebrow" style="color: var(--amber);">Studio Operations</span>
+            <h1>Inquiries</h1>
+            <div class="dash-subtext">Active website booking submissions and destination request forms.</div>
+          </div>
+          <button class="btn btn-solid" style="padding: 9px 18px; font-size: 13px;" onclick="openModal('Client Inquiries', 'Reply to incoming messages', 'messages')"><span>Reply to All Inquiries</span></button>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card" onclick="openModal('Priya &amp; Vikram Inquiry', 'Destination wedding request', 'messages')">
+            <div class="kpi-header">
+              <span class="kpi-title">Priya &amp; Vikram</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">NEW</div>
+            </div>
+            <div class="kpi-value">Wedding</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">Rajasthan Cover</span>
+              <span class="trend-label">· Jan 2027</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Innova Tech Inquiry', '3-day conference request', 'messages')">
+            <div class="kpi-header">
+              <span class="kpi-title">Innova Tech Ltd</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--paper-faint);">1d ago</div>
+            </div>
+            <div class="kpi-value">Conference</div>
+            <div class="kpi-footer">
+              <span class="trend-up">Bengaluru Stage</span>
+              <span class="trend-label">· 500+ Attendees</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('Meera Sharma Inquiry', 'Family studio request', 'messages')">
+            <div class="kpi-header">
+              <span class="kpi-title">Meera Sharma</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--paper-faint);">2d ago</div>
+            </div>
+            <div class="kpi-value">Portrait</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">Studio B session</span>
+              <span class="trend-label">· Sept 2026</span>
+            </div>
+          </div>
+
+          <div class="kpi-card" onclick="openModal('TechCorp Event', 'Headshots and keynote coverage for 2 days.', 'inquiry_techcorp')">
+            <div class="kpi-header">
+              <span class="kpi-title">TechCorp</span>
+              <div class="kpi-icon-wrap" style="font-family:'JetBrains Mono'; font-size:10px; color:var(--amber);">NEW</div>
+            </div>
+            <div class="kpi-value">Summit</div>
+            <div class="kpi-footer">
+              <span style="color:var(--amber); font-weight:600;">2-day coverage</span>
+              <span class="trend-label">· Bengaluru</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-panel" style="margin-top: 24px;">
+          <div class="panel-head">
+            <h2>Inbox</h2>
+          </div>
+          <div class="proof-grid">
+            <div class="proof-card" onclick="openModal('Priya &amp; Vikram Inquiry', 'Destination wedding request', 'messages')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_w2.webp" alt="Wedding inquiry">
+                <span class="proof-tag">WEDDING</span>
+              </div>
+              <div class="proof-body">
+                <h4>Priya &amp; Vikram — Rajasthan</h4>
+                <div class="proof-meta">
+                  <span>Jan 2027 · destination cover</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Reply →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Innova Tech Inquiry', '3-day conference request', 'messages')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_e1.webp" alt="Conference">
+                <span class="proof-tag">CORPORATE</span>
+              </div>
+              <div class="proof-body">
+                <h4>Innova Tech Ltd</h4>
+                <div class="proof-meta">
+                  <span>3-day stage · 500 attendees</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Reply →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Meera Sharma Inquiry', 'Family studio request', 'messages')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_p2.webp" alt="Portrait inquiry">
+                <span class="proof-tag">SITTING</span>
+              </div>
+              <div class="proof-body">
+                <h4>Meera Sharma — Studio B</h4>
+                <div class="proof-meta">
+                  <span>Family portraits · Sept 2026</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Reply →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Inquiry: Meera & Rahul', 'Full day wedding coverage inquiry for Nov 2026.', 'inquiry_meera')">
+              <div class="proof-thumb-wrap">
+                <img src="img/g_w4.webp" alt="Nov wedding">
+                <span class="proof-tag">WEDDING</span>
+              </div>
+              <div class="proof-body">
+                <h4>Meera &amp; Rahul — November</h4>
+                <div class="proof-meta">
+                  <span>Full day film coverage</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Reply →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('Inquiry: TechCorp Event', 'Headshots and keynote coverage for 2 days.', 'inquiry_techcorp')">
+              <div class="proof-thumb-wrap">
+                <img src="img/svc_corporate.webp" alt="TechCorp">
+                <span class="proof-tag">SUMMIT</span>
+              </div>
+              <div class="proof-body">
+                <h4>TechCorp Annual Summit</h4>
+                <div class="proof-meta">
+                  <span>Two photographers requested</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Reply →</span>
+                </div>
+              </div>
+            </div>
+            <div class="proof-card" onclick="openModal('General Inquiry', 'Contact form message', 'messages')">
+              <div class="proof-thumb-wrap">
+                <img src="img/about_studio.webp" alt="General">
+                <span class="proof-tag">EMAIL</span>
+              </div>
+              <div class="proof-body">
+                <h4>General studio booking</h4>
+                <div class="proof-meta">
+                  <span>Received via info@stackly.com</span>
+                  <span style="color:var(--amber); font-size:12px; font-weight:600;">Reply →</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-grid-2col is-flush">
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>Follow-up board</h2>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Lead</th>
+                    <th>Type</th>
+                    <th>City</th>
+                    <th>Next step</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Priya &amp; Vikram</td>
+                    <td>Wedding</td>
+                    <td>Rajasthan</td>
+                    <td>Send film package</td>
+                  </tr>
+                  <tr>
+                    <td>Innova Tech</td>
+                    <td>Conference</td>
+                    <td>Bengaluru</td>
+                    <td>Quote 3-day crew</td>
+                  </tr>
+                  <tr>
+                    <td>Meera Sharma</td>
+                    <td>Sitting</td>
+                    <td>Salem HQ</td>
+                    <td>Offer Studio B dates</td>
+                  </tr>
+                  <tr>
+                    <td>Meera &amp; Rahul</td>
+                    <td>Wedding</td>
+                    <td>TBD</td>
+                    <td>Call this week</td>
+                  </tr>
+                  <tr>
+                    <td>TechCorp</td>
+                    <td>Summit</td>
+                    <td>Bengaluru</td>
+                    <td>Confirm 2 shooters</td>
+                  </tr>
+                  <tr>
+                    <td>info@ inbox</td>
+                    <td>General</td>
+                    <td>—</td>
+                    <td>Triage to services</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="dash-panel">
+            <div class="panel-head">
+              <h2>Reply templates</h2>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Wedding intro</strong>
+                <span>Film process, two shooters, linen album</span>
+              </div>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Corporate day rate</strong>
+                <span>Half / full day · Tri-X or Portra</span>
+              </div>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Studio B sitting</strong>
+                <span>2 hours · 20 scans · Salem or Bengaluru</span>
+              </div>
+            </div>
+            <div class="press-row">
+              <div class="press-meta">
+                <strong>Decline / waitlist</strong>
+                <span>Date taken · offer next open weekend</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+    </div>
+
+    <!-- Right-Side Inline Info Panel -->
+    <aside id="rightInfoPanel" class="right-info-panel">
+      <div style="width: 390px; display: flex; flex-direction: column; height: 100%;">
+        <div class="rp-header">
+          <div class="rp-header-left">
+            <span class="rp-eyebrow" id="modalEyebrow">Stackly Studio OS</span>
+            <h3 class="rp-title" id="modalTitle">Information</h3>
+          </div>
+          <button class="rp-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="rp-body" id="modalContent">
+          <p>Loading...</p>
+        </div>
+        <div class="rp-footer">
+          <button class="rp-dismiss" onclick="closeModal()">Dismiss</button>
+          <button class="rp-action" id="modalActionBtn" onclick="showToast('Action confirmed!'); closeModal();">Confirm</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <button class="mob-nav-btn active" id="mobNavOverview" onclick="switchDashboardTab('overview')">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      Overview
+    </button>
+    <button class="mob-nav-btn" id="mobNavProofs" onclick="switchDashboardTab('proofs')">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+      Proofs
+      <span class="mob-nav-badge">8</span>
+    </button>
+    <button class="mob-nav-btn" id="mobNavCalendar" onclick="switchDashboardTab('calendar')">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      Calendar
+    </button>
+    <button class="mob-nav-btn" id="mobNavFilm" onclick="switchDashboardTab('film')">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+      Film
+    </button>
+    <button class="mob-nav-btn" id="mobNavInquiries" onclick="switchDashboardTab('inquiries')">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+      Inbox
+      <span class="mob-nav-badge">3</span>
+    </button>
+  </nav>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="toast-notification">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    <span id="toastMsg">Action executed successfully</span>
+  </div>
+
+  <script>
+    // Role Switching Logic
+    function switchRole(role) {
+      const photographerView = document.getElementById('view-photographer');
+      const clientView = document.getElementById('view-client');
+      const btnPhotographer = document.getElementById('btnPhotographerRole');
+      const btnClient = document.getElementById('btnClientRole');
+
+      if (role === 'client') {
+        photographerView.style.display = 'none';
+        clientView.style.display = 'block';
+        btnPhotographer.classList.remove('active');
+        btnClient.classList.add('active');
+        document.title = 'Client Portal — Stackly Photography';
+      } else {
+        photographerView.style.display = 'block';
+        clientView.style.display = 'none';
+        btnPhotographer.classList.add('active');
+        btnClient.classList.remove('active');
+        document.title = 'Studio Dashboard — Stackly Photography';
+      }
+      try { sessionStorage.setItem('stacklyRole', role); } catch (e) {}
+      applyLoggedInUser(role);
+    }
+
+    function initialsFromEmail(email) {
+      var ch = (email || '').trim().charAt(0);
+      return ch ? ch.toUpperCase() : '—';
+    }
+
+    function readStoredEmail() {
+      var params = new URLSearchParams(window.location.search);
+      var email = (params.get('email') || '').trim();
+      try {
+        if (!email) email = (localStorage.getItem('stacklyEmail') || '').trim();
+        if (!email) email = (sessionStorage.getItem('stacklyEmail') || '').trim();
+        if (email) {
+          localStorage.setItem('stacklyEmail', email);
+          sessionStorage.setItem('stacklyEmail', email);
+        }
+      } catch (e) {}
+      return email;
+    }
+
+    function applyLoggedInUser(role) {
+      var email = readStoredEmail();
+      var avatar = document.getElementById('sidebarAvatar');
+      var nameEl = document.getElementById('sidebarUserName');
+      var mailEl = document.getElementById('sidebarUserEmail');
+      if (!avatar || !nameEl) return;
+      if (!email) return;
+      avatar.textContent = initialsFromEmail(email);
+      nameEl.textContent = email;
+      nameEl.title = email;
+      if (mailEl) mailEl.textContent = '';
+    }
+
+    // Modal Control System
+    function openModal(title, description, type) {
+      window.location.href = '404.html';
+    }
+
+    function goTo404(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      window.location.href = '404.html';
+    }
+
+    function closeModal() {
+      document.querySelector('.dash-layout').classList.remove('panel-open');
+    }
+
+    // Mobile Sidebar Functions (defined before switchDashboardTab so they are available)
+    function openMobileSidebar() {
+      document.querySelector('.dash-sidebar').classList.add('mobile-open');
+      document.getElementById('mobileSidebarOverlay').classList.add('active');
+    }
+    function closeMobileSidebar() {
+      document.querySelector('.dash-sidebar').classList.remove('mobile-open');
+      document.getElementById('mobileSidebarOverlay').classList.remove('active');
+    }
+
+    function switchDashboardTab(tabName) {
+      // 1. Remove active class from all menu buttons
+      const buttons = document.querySelectorAll('.dash-sidebar button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      // 2. Add active class to corresponding menu button
+      let btnId = '';
+      if (tabName === 'overview') btnId = 'navOverview';
+      else if (tabName === 'proofs') btnId = 'navProofs';
+      else if (tabName === 'calendar') btnId = 'navCalendar';
+      else if (tabName === 'services') btnId = 'navServices';
+      else if (tabName === 'film') btnId = 'navFilm';
+      else if (tabName === 'inquiries') btnId = 'navInquiries';
+
+      const targetBtn = document.getElementById(btnId);
+      if (targetBtn) targetBtn.classList.add('active');
+
+      // 3. Toggle content visibility for tab views
+      const views = document.querySelectorAll('.tab-view');
+      views.forEach(v => v.style.display = 'none');
+
+      const activeView = document.getElementById('tab-' + tabName);
+      if (activeView) activeView.style.display = 'block';
+
+      // 4. Sync mobile bottom nav
+      const mobBtnMap = {
+        'overview': 'mobNavOverview',
+        'proofs': 'mobNavProofs',
+        'calendar': 'mobNavCalendar',
+        'services': 'mobNavFilm',
+        'film': 'mobNavFilm',
+        'inquiries': 'mobNavInquiries'
+      };
+      document.querySelectorAll('.mob-nav-btn').forEach(b => b.classList.remove('active'));
+      const mobActive = document.getElementById(mobBtnMap[tabName] || 'mobNavOverview');
+      if (mobActive) mobActive.classList.add('active');
+
+      // 5. Close mobile sidebar if open
+      closeMobileSidebar();
+
+      // 6. Close any open detail panels
+      closeModal();
+
+      showToast('Switched to ' + tabName.charAt(0).toUpperCase() + tabName.slice(1));
+    }
+
+    // Filter Table Real-time Search
+    function filterDashboardTable() {
+      const input = document.getElementById('dashSearchInput').value.toLowerCase();
+      const table = document.getElementById('pipelineTable');
+      if (!table) return;
+      const rows = table.getElementsByTagName('tr');
+
+      for (let i = 1; i < rows.length; i++) {
+        const text = rows[i].textContent.toLowerCase();
+        if (text.includes(input)) {
+          rows[i].style.display = '';
+        } else {
+          rows[i].style.display = 'none';
+        }
+      }
+    }
+
+    // Toast Notification helper
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const msg = document.getElementById('toastMsg');
+      msg.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // (Mobile sidebar functions moved above switchDashboardTab)
+
+    // Auto-detect role from URL query param `?role=client`
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const role = params.get('role') || (function () {
+        try { return sessionStorage.getItem('stacklyRole'); } catch (e) { return null; }
+      })() || 'photographer';
+      if (role === 'client') {
+        switchRole('client');
+      } else {
+        applyLoggedInUser(role);
+      }
+    })();
+  </script>
+</body>
+</html>

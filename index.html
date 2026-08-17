@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stackly — Photography Studio</title>
+  <meta name="description" content="Stackly is a photography studio for weddings, portraits, and stories shot on film. Three cities, eleven photographers, one deliberate process.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ═══════════════════════════════════════════
+       VIDEO HERO
+    ═══════════════════════════════════════════ */
+    .hero-video {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* ── Video background ── */
+    .hero-video__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+    }
+
+    /* ── Overlay: dark top + heavier bottom fade ── */
+    .hero-video__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(to bottom,
+          rgba(21,19,15,0.70) 0%,
+          rgba(21,19,15,0.35) 40%,
+          rgba(21,19,15,0.35) 60%,
+          rgba(21,19,15,0.90) 100%);
+    }
+
+    /* ── Main content block ── */
+    .hero-video__content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 900px;
+      padding: 0 40px;
+      text-align: center;
+      margin-top: 0;
+    }
+
+    /* Eyebrow label */
+    .hero-video__content .eyebrow {
+      justify-content: center;
+      color: var(--amber);
+      font-size: 11px;
+      letter-spacing: 0.20em;
+      margin-bottom: 0;
+    }
+
+    /* Big headline */
+    .hero-video__content h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(46px, 6.5vw, 88px);
+      line-height: 1.0;
+      font-weight: 500;
+      color: var(--paper);
+      letter-spacing: -0.025em;
+      margin: 20px 0 0;
+    }
+    .hero-video__content h1 em {
+      font-style: italic;
+      color: var(--amber);
+      font-weight: 400;
+    }
+
+    /* Sub copy */
+    .hero-video__content .hero-sub {
+      margin: 24px auto 0;
+      max-width: 540px;
+      color: rgba(243,236,224,0.72);
+      font-size: 16.5px;
+      line-height: 1.70;
+      font-weight: 400;
+    }
+
+    /* CTA buttons */
+    .hero-video__content .hero-cta {
+      margin-top: 38px;
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-video__content .hero-cta .btn {
+      font-size: 14px;
+      padding: 13px 28px;
+    }
+    .hero-video__content .hero-cta .btn-solid {
+      background: var(--amber);
+      color: var(--ink);
+      border-color: var(--amber);
+    }
+    .hero-video__content .hero-cta .btn-solid:hover {
+      background: var(--paper);
+      border-color: var(--paper);
+    }
+    .hero-video__content .hero-cta .btn-ghost {
+      border-color: rgba(243,236,224,0.30);
+      color: var(--paper);
+    }
+    .hero-video__content .hero-cta .btn-ghost:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    /* ── Stats bar — pinned at bottom of hero ── */
+    .hero-stats {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border-top: 1px solid rgba(243,236,224,0.12);
+      background: rgba(21,19,15,0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .hero-stats__item {
+      flex: 1;
+      max-width: 200px;
+      text-align: center;
+      padding: 22px 16px;
+      border-right: 1px solid rgba(243,236,224,0.10);
+    }
+    .hero-stats__item:last-child {
+      border-right: none;
+    }
+    .hero-stats__item strong {
+      display: block;
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--paper);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+    .hero-stats__item span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--paper-faint);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    /* ── Scroll cue — sits just above the stats bar ── */
+    .hero-scroll-cue {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-scroll-cue span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(243,236,224,0.40);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 38px;
+      background: linear-gradient(to bottom, var(--amber), transparent);
+      animation: scrollPulse 1.8s ease-in-out infinite;
+      transform-origin: top;
+    }
+    @keyframes scrollPulse {
+      0%   { opacity: 0.3; transform: scaleY(0.7); }
+      50%  { opacity: 1;   transform: scaleY(1);   }
+      100% { opacity: 0.3; transform: scaleY(0.7); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-video__content { padding: 0 24px; margin-top: 20px; }
+      .hero-video__content h1 { font-size: clamp(36px, 9vw, 56px); }
+      .hero-video__content .hero-sub { font-size: 15px; max-width: 100%; }
+      .hero-scroll-cue { bottom: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header>
+    <nav class="nav">
+      <a href="index.html" class="logo">
+        <span style="font-family:'Fraunces',serif; font-size:26px; font-weight:600; letter-spacing:-0.5px; color:var(--amber);">Stackly</span>
+      </a>
+      <ul class="navlinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="navright">
+        <a href="login.html" class="login-link">Log in</a>
+        <a href="get-started.html" class="btn btn-solid">Get started</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ── Hero Video ── -->
+  <section class="hero-video">
+
+    <!-- 1. Background video -->
+    <video class="hero-video__bg" autoplay muted loop playsinline
+      poster="https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&h=900&fit=crop&q=80">
+      <source src="239444.mp4" type="video/mp4">
+    </video>
+
+    <!-- 2. Overlay -->
+    <div class="hero-video__overlay"></div>
+
+    <!-- 3. Main content -->
+    <div class="hero-video__content">
+      <span class="eyebrow">Film-based studio &middot; Est. 2016</span>
+      <h1>
+        Every frame<br>
+        shot with <em>intention</em><br>
+        on film.
+      </h1>
+      <p class="hero-sub">Weddings, portraits, editorial, and travel. Eleven photographers across Bengaluru, Mumbai, and Goa. One slow, deliberate process &mdash; from shutter to printed album.</p>
+      <div class="hero-cta">
+        <a href="404.html" class="btn btn-solid">View Portfolio</a>
+        <a href="404.html" class="btn btn-ghost">Book a Session &rarr;</a>
+      </div>
+    </div>
+
+    <!-- 4. Scroll cue -->
+    <div class="hero-scroll-cue">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+
+  </section>
+
+  <!-- ── Stats Strip ── -->
+  <div class="stats-strip">
+    <div class="stats-strip__item">
+      <strong>11</strong>
+      <span>Photographers</span>
+    </div>
+    <div class="stats-strip__item">
+      <strong>3</strong>
+      <span>Cities</span>
+    </div>
+    <div class="stats-strip__item">
+      <strong>240+</strong>
+      <span>Weddings Shot</span>
+    </div>
+    <div class="stats-strip__item">
+      <strong>9.8k</strong>
+      <span>Rolls Developed</span>
+    </div>
+  </div>
+
+  <!-- ── Marquee ── -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Film Photography</span>
+      <span>Wedding Stories</span>
+      <span>Printed Albums</span>
+      <span>Portraits on Film</span>
+      <span>Editorial Work</span>
+      <span>Travel Stories</span>
+      <span>Bengaluru</span>
+      <span>Mumbai</span>
+      <span>Goa</span>
+      <span>Film Photography</span>
+      <span>Wedding Stories</span>
+      <span>Printed Albums</span>
+      <span>Portraits on Film</span>
+      <span>Editorial Work</span>
+      <span>Travel Stories</span>
+      <span>Bengaluru</span>
+      <span>Mumbai</span>
+      <span>Goa</span>
+    </div>
+  </div>
+
+  <!-- ── About Preview ── -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-frame reveal">
+          <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=700&h=900&fit=crop&q=80" alt="Photographer at work">
+        </div>
+        <div class="about-copy reveal">
+          <span class="eyebrow">About Stackly</span>
+          <h2 style="font-family:'Fraunces',serif;font-size:clamp(28px,3vw,42px);margin:20px 0 28px;line-height:1.1;">We are not a studio.<br>We are eleven photographers<br>with a shared belief.</h2>
+          <p>We started Stackly because we were tired of digital photography's disposability. Film demands patience. It demands that you be present, that you think before you press the shutter. Every frame costs something — and that cost makes every frame count.</p>
+          <div class="stat-row">
+            <div>
+              <strong>620+</strong>
+              <span>Projects Shot</span>
+            </div>
+            <div>
+              <strong>11</strong>
+              <span>Photographers</span>
+            </div>
+            <div>
+              <strong>3</strong>
+              <span>Studios</span>
+            </div>
+          </div>
+          <div style="margin-top:36px;">
+            <a href="404.html" class="btn btn-ghost">Our Story &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services ── -->
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="section-head is-center reveal">
+        <span class="eyebrow">Our Services</span>
+        <h2>What we shoot.</h2>
+        <p>Four disciplines, one slow, deliberate process — from plan to printed album.</p>
+      </div>
+      <div class="service-list reveal">
+        <div class="service-row">
+          <span class="num">01</span>
+          <h3>Corporate Events</h3>
+          <p>Professional coverage for headshots, office culture, corporate galas and business events.</p>
+          <a href="404.html" class="arrow">&rarr;</a>
+        </div>
+        <div class="service-row">
+          <span class="num">02</span>
+          <h3>Family Portraits</h3>
+          <p>Timeless portraiture capturing the candid, authentic moments of your family's milestones.</p>
+          <a href="404.html" class="arrow">&rarr;</a>
+        </div>
+        <div class="service-row">
+          <span class="num">03</span>
+          <h3>Wedding Stories</h3>
+          <p>Unobtrusive documentary coverage of your beautiful ceremony, reception, and every detail.</p>
+          <a href="404.html" class="arrow">&rarr;</a>
+        </div>
+        <div class="service-row">
+          <span class="num">04</span>
+          <h3>Travel Editorial</h3>
+          <p>Striking commercial commissions and compelling visual narratives for global publications.</p>
+          <a href="404.html" class="arrow">&rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Work preview ── -->
+  <section class="gallery" id="work">
+    <div class="wrap">
+      <div class="section-head is-center reveal">
+        <span class="eyebrow">Selected work</span>
+        <h2>A few frames from the stack.</h2>
+        <p>Travel, events, functions, business, family, and weddings — all shot on film first.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="g-item">
+          <div class="g-img-wrap"><img src="img/gallery_travel.webp" alt=""></div>
+          <span class="caption">Travel</span>
+        </div>
+        <div class="g-item">
+          <div class="g-img-wrap"><img src="img/gallery_event.webp" alt=""></div>
+          <span class="caption">Event</span>
+        </div>
+        <div class="g-item">
+          <div class="g-img-wrap"><img src="img/gallery_function.webp" alt=""></div>
+          <span class="caption">Function</span>
+        </div>
+        <div class="g-item">
+          <div class="g-img-wrap"><img src="img/gallery_business.webp" alt=""></div>
+          <span class="caption">Business</span>
+        </div>
+        <div class="g-item">
+          <div class="g-img-wrap"><img src="img/gallery_child.webp" alt=""></div>
+          <span class="caption">Child</span>
+        </div>
+        <div class="g-item">
+          <div class="g-img-wrap"><img src="img/gallery_wedding_new.webp" alt=""></div>
+          <span class="caption">Wedding</span>
+        </div>
+      </div>
+      <div class="gallery-more reveal">
+        <a href="404.html" class="btn btn-ghost">See All Work &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Booking Inclusions ── -->
+  <section class="journal" id="booking-inclusions">
+    <div class="wrap">
+      <div class="section-head is-center reveal">
+        <span class="eyebrow">What's Included</span>
+        <h2>From first call to final print.</h2>
+        <p>Clear, considered coverage with the essentials already built into every Stackly commission.</p>
+      </div>
+      <div class="service-grid service-grid--4 reveal">
+        <article class="service-card">
+          <svg class="inclusion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-1.9 5.4A8.5 8.5 0 1 1 16.9 4.9 8.38 8.38 0 0 1 22 11v.5z"></path><path d="M8 12h.01"></path><path d="M12 12h.01"></path><path d="M16 12h.01"></path></svg>
+          <span class="num">01</span>
+          <h3>Planning call</h3>
+          <p>A relaxed conversation about your date, locations, priorities, and the images you want to remember.</p>
+        </article>
+        <article class="service-card">
+          <svg class="inclusion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg>
+          <span class="num">02</span>
+          <h3>Coverage plan</h3>
+          <p>A practical timeline and crew plan that lets the day unfold naturally without missing the meaningful moments.</p>
+        </article>
+        <article class="service-card">
+          <svg class="inclusion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="m21 15-5-5L5 21"></path></svg>
+          <span class="num">03</span>
+          <h3>Curated gallery</h3>
+          <p>High-resolution scans selected, colour-corrected, and delivered in a private gallery that is easy to share.</p>
+        </article>
+        <article class="service-card">
+          <svg class="inclusion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><path d="M8 7h8"></path><path d="M8 11h6"></path></svg>
+          <span class="num">04</span>
+          <h3>Print guidance</h3>
+          <p>Personal help choosing the frames, prints, and album format that will make your photographs part of daily life.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Studio Standard ── -->
+  <section class="services" id="studio-standard">
+    <div class="wrap">
+      <div class="section-head is-center reveal">
+        <span class="eyebrow">The Stackly Standard</span>
+        <h2>Made to be held onto.</h2>
+        <p>Every commission is planned with the final photograph—not just the shoot day—in mind.</p>
+      </div>
+      <div class="service-grid reveal">
+        <article class="service-card">
+          <span class="num">01 / FILM FIRST</span>
+          <h3>Thoughtful frames</h3>
+          <p>We work deliberately with film, choosing the stock and light that fit the story rather than chasing every moment.</p>
+        </article>
+        <article class="service-card">
+          <span class="num">02 / HUMAN SCALE</span>
+          <h3>The right crew</h3>
+          <p>A focused team of one to three photographers gives you room to be present while every important detail is covered.</p>
+        </article>
+        <article class="service-card">
+          <span class="num">03 / LASTING DELIVERY</span>
+          <h3>Built for the archive</h3>
+          <p>Receive a considered digital gallery, with handcrafted prints and albums available for the images that deserve a place in your home.</p>
+        </article>
+      </div>
+      <div class="gallery-more reveal">
+        <a href="get-started.html" class="btn btn-ghost">Plan Your Session &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Process ── -->
+  <section class="process" id="process">
+    <div class="wrap">
+      <div class="section-head is-center reveal">
+        <span class="eyebrow">Our Approach</span>
+        <h2>The process is the<br>whole point.</h2>
+        <p>A four-step workflow, followed the same way for every client, in every city.</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step reveal">
+          <div class="process-img">
+            <img src="img/gallery_business.webp" alt="">
+            <span class="step-num">01</span>
+          </div>
+          <h3>Discovery</h3>
+          <p>Understanding your vision, your story, and the look you want to hold.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-img">
+            <img src="img/gallery_travel.webp" alt="">
+            <span class="step-num">02</span>
+          </div>
+          <h3>Creative Direction</h3>
+          <p>A plan for the light, the rooms, and the frames that actually need to exist.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-img">
+            <img src="img/gallery_event.webp" alt="">
+            <span class="step-num">03</span>
+          </div>
+          <h3>The Session</h3>
+          <p>Film first, digital backup. Quiet coverage that does not get in the way.</p>
+        </div>
+        <div class="process-step reveal">
+          <div class="process-img">
+            <img src="img/gallery_wedding_new.webp" alt="">
+            <span class="step-num">04</span>
+          </div>
+          <h3>The Edit</h3>
+          <p>Developed in-house, then a printed album — not just a download link.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Expertise ── -->
+  <section class="journal" id="expertise">
+    <div class="wrap">
+      <div class="section-head is-center reveal">
+        <span class="eyebrow">Our Expertise</span>
+        <h2>Specialized coverage.</h2>
+        <p>Three kinds of days we shoot most — the same standard on each.</p>
+      </div>
+      <div class="journal-grid">
+        <article class="journal-card reveal">
+          <div class="journal-thumb"><img src="img/expertise_corporate.webp" alt=""></div>
+          <div class="journal-meta"><span class="cat">Business</span></div>
+          <h3>Corporate &amp; business</h3>
+          <p>Headshots, culture, and office days for decks, press, and the annual report.</p>
+        </article>
+        <article class="journal-card reveal">
+          <div class="journal-thumb"><img src="img/expertise_events.webp" alt=""></div>
+          <div class="journal-meta"><span class="cat">Events</span></div>
+          <h3>Events &amp; functions</h3>
+          <p>Seminars, galas, and campus days — a clean record without a wall of flash.</p>
+        </article>
+        <article class="journal-card reveal">
+          <div class="journal-thumb"><img src="img/expertise_wedding.webp" alt=""></div>
+          <div class="journal-meta"><span class="cat">Weddings</span></div>
+          <h3>Weddings &amp; family</h3>
+          <p>Full-day documentary coverage, Portra 400, and a printed album in four weeks.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="section-head reveal" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem;">
+        <span class="eyebrow">Common Questions</span>
+        <h2 style="margin: 0;">Things people ask<br>before they book.</h2>
+      </div>
+
+            <div class="faq-list reveal" style="margin-top: 3rem;">
+        <div class="faq-item">
+          <div class="faq-q">
+            <h4 style="display: flex; align-items: center; gap: 1rem;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--amber); opacity: 0.8;">01</span> How long does the final gallery take to deliver?</h4>
+            <div class="plus" aria-hidden="true">+</div>
+          </div>
+          <div class="faq-a">
+            <p>Our standard turnaround time is 3-4 weeks for portrait and corporate sessions, and 6-8 weeks for full weddings. We take our time to ensure every image is meticulously curated and perfectly graded.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <h4 style="display: flex; align-items: center; gap: 1rem;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--amber); opacity: 0.8;">02</span> Do you travel outside of your primary cities?</h4>
+            <div class="plus" aria-hidden="true">+</div>
+          </div>
+          <div class="faq-a">
+            <p>Yes. While we are based across three main cities, we regularly accept commissions globally for editorial, documentary, and destination wedding projects. Travel expenses are calculated transparently during the quote process.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q">
+            <h4 style="display: flex; align-items: center; gap: 1rem;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--amber); opacity: 0.8;">03</span> Do you offer both digital and physical albums?</h4>
+            <div class="plus" aria-hidden="true">+</div>
+          </div>
+          <div class="faq-a">
+            <p>Absolutely. Every project includes a secure, high-resolution digital gallery. For weddings and major milestones, we highly encourage adding a handcrafted physical album, which serves as a timeless family heirloom.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-q">
+            <h4 style="display: flex; align-items: center; gap: 1rem;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--amber); opacity: 0.8;">04</span> Can we give you a shot list?</h4>
+            <div class="plus" aria-hidden="true">+</div>
+          </div>
+          <div class="faq-a">
+            <p>We absolutely welcome a brief list of must-have family groupings or specific branding requirements. However, we ask that you trust our creative documentary approach for the majority of the day to ensure genuine, candid moments.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="cta-band">
+    <div class="wrap">
+      <span class="eyebrow">Let's work</span>
+      <h2>Ready to elevate your visual identity?</h2>
+      <p>Send the date. We will tell you if we are free, and what the coverage looks like.</p>
+      <div class="hero-cta">
+        <a href="404.html" class="btn btn-solid" style="text-align:center;">Book a Consultation &rarr;</a>
+        <a href="404.html" class="btn btn-ghost" style="text-align:center;">View Gallery</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Footer ── -->
+    <!-- ── Footer ── -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-contact-strip" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 2rem; border-bottom: 1px solid var(--line); padding-bottom: 3rem; margin-bottom: 3rem;">
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 24px; color: var(--amber);">📞</div>
+          <div>
+            <h5 style="font-family: 'Fraunces', serif; font-size: 18px; color: var(--paper); margin-bottom: 4px; font-weight: 400;">Phone No:</h5>
+            <p style="color: var(--paper-dim); font-size: 14px; line-height: 1.5; margin: 0;">+91 98765 43210<br>Mon – Sat: 07.00 to 18.00</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 24px; color: var(--amber);">✉️</div>
+          <div>
+            <h5 style="font-family: 'Fraunces', serif; font-size: 18px; color: var(--paper); margin-bottom: 4px; font-weight: 400;">Email Address:</h5>
+            <p style="color: var(--paper-dim); font-size: 14px; line-height: 1.5; margin: 0;">hello@stacklystudio.com<br>booking@stacklystudio.com</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 24px; color: var(--amber);">📍</div>
+          <div>
+            <h5 style="font-family: 'Fraunces', serif; font-size: 18px; color: var(--paper); margin-bottom: 4px; font-weight: 400;">Location (HQ):</h5>
+            <p style="color: var(--paper-dim); font-size: 14px; line-height: 1.5; margin: 0;">MMR Complex, Chinna Thirupathi,<br>near Chinna Muniyappan Kovil,<br>Salem, Tamil Nadu 636008</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="index.html" class="logo">
+            <span style="font-family:'Fraunces',serif; font-size:26px; font-weight:600; letter-spacing:-0.5px; color:var(--amber);">Stackly</span>
+          </a>
+          <p style="color: var(--paper-dim); font-size: 15px; margin-top: 1rem; line-height: 1.6;">Documenting authentic stories since 2015. Shot on film, delivered with care. A standard of excellence across all four disciplines.</p>
+          <div style="display: flex; gap: 1.25rem; margin-top: 1.5rem;">
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="YouTube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="GitHub">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="Twitter">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+            </a>
+          </div>
+        </div>
+                  <div class="foot-col">
+            <h5 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-faint); margin-bottom: 18px;">Quick Links</h5>
+            <a href="index.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Home</a>
+            <a href="about.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">About</a>
+            <a href="gallery.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Gallery</a>
+            <a href="events.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Events</a>
+            <a href="services.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Services</a>
+            <a href="contact.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Contact</a>
+          </div>
+        <div class="foot-col">
+          <h5 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-faint); margin-bottom: 18px;">Services</h5>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Corporate Events</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Family Portraits</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Wedding Stories</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Travel Editorial</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Campus Events</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Seminars &amp; Classes</a>
+        </div>
+        <div class="foot-col">
+          <h5 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-faint); margin-bottom: 18px;">Subscribe Newsletter</h5>
+          <p style="margin-bottom: 1rem; color: var(--paper-dim); font-size: 13.5px; line-height: 1.6;">Enter your email and get recent studio news &amp; seasonal booking updates.</p>
+          <form class="foot-form js-validate" data-success="404.html" novalidate>
+            <input type="email" placeholder="your@email.com" data-validate="email" autocomplete="email">
+            <button type="submit" style="font-size: 18px;">✈</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="foot-bottom">
+        <span>Copyright &copy; 2026 STACKLY. All Rights Reserved.</span>
+        <div class="socials">
+          <a href="404.html">Privacy &amp; Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="validate.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+

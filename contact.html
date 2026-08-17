@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Stackly Photography Studio</title>
+  <meta name="description" content="Book Stackly for a marriage, office function, seminar, class, or college event. Bengaluru, Mumbai, and Goa.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a href="index.html" class="logo"><span style="font-family:'Fraunces',serif; font-size:26px; font-weight:600; letter-spacing:-0.5px; color:var(--amber);">Stackly</span></a>
+      <ul class="navlinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+      <div class="navright">
+        <a href="login.html" class="login-link">Log in</a>
+        <a href="get-started.html" class="btn btn-solid">Get started</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-banner page-hero">
+      <video class="page-hero__bg" autoplay muted loop playsinline>
+        <source src="154384-807362369.mp4" type="video/mp4">
+      </video>
+      <div class="page-hero__overlay"></div>
+      <div class="wrap">
+        <span class="eyebrow">Contact</span>
+        <div class="crumb"><a href="index.html">Home</a> / Contact</div>
+        <h1>Let’s add your story<br>to the stack.</h1>
+        <p>Tell us the date, the place, and what you want covered — marriage, office, seminar, class, or college. We reply within one business day.</p>
+      </div>
+    </section>
+
+    <section id="enquire">
+      <div class="wrap">
+        <div class="contact-grid">
+          <div class="reveal">
+            <div class="contact-aside-photo">
+              <img src="img/about_photographer.webp" alt="">
+            </div>
+            <div class="contact-info-card">
+              <h4>Email</h4>
+              <a href="mailto:hello@stackly.studio">hello@stackly.studio</a>
+              <a href="mailto:bookings@stackly.studio">bookings@stackly.studio</a>
+            </div>
+            <div class="contact-info-card">
+              <h4>Phone</h4>
+              <a href="tel:+911234567890">+91 12345 67890</a>
+              <p>Mon–Sat, 10am–6pm IST</p>
+            </div>
+            <div class="contact-info-card">
+              <h4>Studio (HQ)</h4>
+              <p>MMR Complex, Chinna Thirupathi,</p>
+              <p>near Chinna Muniyappan Kovil,</p>
+              <p>Salem, Tamil Nadu 636008</p>
+            </div>
+
+
+          </div>
+
+          <div class="contact-form-box reveal">
+            <h3>Send us a message</h3>
+            <p>Fill this in and we will follow up with availability and a quote.</p>
+            <form id="contact-form" class="js-validate" data-success="404.html" novalidate>
+              <div class="form-row">
+                <div class="field">
+                  <label for="ct-first">First name</label>
+                  <input id="ct-first" type="text" placeholder="Ananya" data-validate="name" autocomplete="given-name">
+                </div>
+                <div class="field">
+                  <label for="ct-last">Last name</label>
+                  <input id="ct-last" type="text" placeholder="Rao" data-validate="lastname" autocomplete="family-name">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="ct-email">Email</label>
+                  <input id="ct-email" type="email" placeholder="you@email.com" data-validate="email" autocomplete="email">
+                </div>
+                <div class="field">
+                  <label for="ct-phone">Phone</label>
+                  <input id="ct-phone" type="tel" placeholder="9876543210" data-validate="phone" inputmode="numeric" maxlength="10" autocomplete="tel">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="ct-type">What are you booking?</label>
+                  <select id="ct-type" data-validate="required" data-empty="Please select what you are booking.">
+                    <option value="">Select a coverage type</option>
+                    <option>Marriage / wedding</option>
+                    <option>Office function</option>
+                    <option>Seminar / conference</option>
+                    <option>Class / workshop</option>
+                    <option>College event</option>
+                    <option>Portrait sitting</option>
+                    <option>Something else</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="ct-date">Date</label>
+                  <input id="ct-date" type="date" data-validate="required" data-empty="Please enter a date.">
+                </div>
+              </div>
+              <div class="field">
+                <label for="ct-msg">Tell us about it</label>
+                <textarea id="ct-msg" placeholder="Date, venue, city, number of guests, and anything else we should know." data-validate="required" data-empty="Please tell us about your booking."></textarea>
+              </div>
+              <button type="submit" class="btn btn-solid submit-btn">Send message →</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head is-center reveal">
+          <span class="eyebrow">Our Branches</span>
+          <h2>Four cities.<br>One standard.</h2>
+          <p>Drop by or book coverage at any of our branch locations.</p>
+        </div>
+        <div class="offices reveal">
+          <div class="office-card">
+            <div class="office-thumb"><img src="img/g_office.webp" alt="Bengaluru Branch"></div>
+            <div class="office-body">
+              <h4>Bengaluru</h4>
+              <address>4th Cross, Indiranagar<br>Bengaluru, Karnataka 560038</address>
+              <div class="hours">Open Mon–Sat</div>
+            </div>
+          </div>
+          <div class="office-card">
+            <div class="office-thumb"><img src="img/expertise_corporate.webp" alt="Hyderabad Branch"></div>
+            <div class="office-body">
+              <h4>Hyderabad</h4>
+              <address>Banjara Hills, Road No. 12<br>Hyderabad, Telangana 500034</address>
+              <div class="hours">Open Mon–Sat</div>
+            </div>
+          </div>
+          <div class="office-card">
+            <div class="office-thumb"><img src="img/g_studio.webp" alt="Pune Branch"></div>
+            <div class="office-body">
+              <h4>Pune</h4>
+              <address>Koregaon Park, Lane 5<br>Pune, Maharashtra 411001</address>
+              <div class="hours">Open Tue–Sun</div>
+            </div>
+          </div>
+          <div class="office-card">
+            <div class="office-thumb"><img src="img/expertise_events.webp" alt="Coimbatore Branch"></div>
+            <div class="office-body">
+              <h4>Coimbatore</h4>
+              <address>RS Puram, 2nd Street<br>Coimbatore, Tamil Nadu 641002</address>
+              <div class="hours">Open Mon–Sat</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ── Map Section ── -->
+    <section style="padding: 0;">
+      <div style="width: 100%; position: relative;">
+        <div style="background: var(--ink); padding: 3rem 0 2rem; text-align: center;">
+          <span class="eyebrow" style="justify-content: center;">Find Us</span>
+          <h2 style="font-family: 'Fraunces', serif; font-size: clamp(26px, 3vw, 38px); margin: 16px 0 8px; color: var(--paper);">Our Headquarters</h2>
+          <p style="color: var(--paper-dim); font-size: 15px;">MMR Complex, Chinna Thirupathi, near Chinna Muniyappan Kovil, Salem, Tamil Nadu 636008</p>
+        </div>
+        <div style="position: relative; width: 100%; height: 450px;">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3912.9!2d78.1460!3d11.6643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf1d1f1c1c1c1%3A0x1!2sChinna+Thirupathi%2C+Salem%2C+Tamil+Nadu+636008!5e0!3m2!1sen!2sin!4v1700000000000"
+            style="width:100%; height:100%; border:0; filter: grayscale(20%) contrast(1.05);"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Stackly HQ Location — Salem, Tamil Nadu">
+          </iframe>
+          <a
+            href="https://maps.google.com/?q=Chinna+Thirupathi,+Salem,+Tamil+Nadu+636008"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="position:absolute; bottom:20px; right:20px; background:var(--amber); color:var(--ink); padding:10px 20px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; border-radius:4px; font-weight:500; box-shadow: 0 4px 16px rgba(0,0,0,0.3); transition: opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'"">Open in Google Maps →</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head is-center reveal">
+          <span class="eyebrow">After you write</span>
+          <h2>From enquiry to album.</h2>
+          <p>What happens after you hit send.</p>
+        </div>
+        <div class="service-grid service-grid--4 reveal">
+          <div class="service-card">
+            <span class="num">01</span>
+            <h3>You write in</h3>
+            <p>Tell us the date, type of event, and a little about what you need covered.</p>
+          </div>
+          <div class="service-card">
+            <span class="num">02</span>
+            <h3>We reply</h3>
+            <p>Within one business day. We confirm availability and send a custom quote.</p>
+          </div>
+          <div class="service-card">
+            <span class="num">03</span>
+            <h3>We plan</h3>
+            <p>A call to walk through the run-of-show, the light, and the shots that matter.</p>
+          </div>
+          <div class="service-card">
+            <span class="num">04</span>
+            <h3>You hold it</h3>
+            <p>Four weeks after the shoot, a printed album and online gallery arrive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="wrap">
+        <div class="section-head is-center reveal">
+          <span class="eyebrow">FAQ</span>
+          <h2>Before you write in.</h2>
+        </div>
+        <div class="faq-list reveal">
+          <div class="faq-item open">
+            <div class="faq-q">
+              <h4>How fast do you reply?</h4>
+              <span class="plus">+</span>
+            </div>
+            <div class="faq-a">
+              <p>Within one business day. For wedding dates less than 8 weeks out, call the studio directly.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              <h4>Do you need a deposit to hold a date?</h4>
+              <span class="plus">+</span>
+            </div>
+            <div class="faq-a">
+              <p>Yes — a 25% deposit secures your date once we have confirmed availability and sent a quote.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              <h4>Can we meet before booking?</h4>
+              <span class="plus">+</span>
+            </div>
+            <div class="faq-a">
+              <p>Always. We do a call or in-person meeting with every client before any contract is signed.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              <h4>Do you cover office, seminar, and college events?</h4>
+              <span class="plus">+</span>
+            </div>
+            <div class="faq-a">
+              <p>Yes. Marriages, office functions, seminars, classes, and campus events — the same team, the same standard.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">
+              <h4>How long until we get our photos?</h4>
+              <span class="plus">+</span>
+            </div>
+            <div class="faq-a">
+              <p>A sneak-peek gallery goes out within 72 hours, with the full edit and printed album following in four weeks.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap">
+        <span class="eyebrow">Let’s work</span>
+        <h2>Ready when you are.</h2>
+        <p>Send the date. We will tell you if we are free, and what the coverage looks like.</p>
+        <div class="hero-cta">
+          <a href="404.html" class="btn btn-solid">Book a Consultation &rarr;</a>
+          <a href="404.html" class="btn btn-ghost">View Gallery</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-contact-strip" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 2rem; border-bottom: 1px solid var(--line); padding-bottom: 3rem; margin-bottom: 3rem;">
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 24px; color: var(--amber);">📞</div>
+          <div>
+            <h5 style="font-family: 'Fraunces', serif; font-size: 18px; color: var(--paper); margin-bottom: 4px; font-weight: 400;">Phone No:</h5>
+            <p style="color: var(--paper-dim); font-size: 14px; line-height: 1.5; margin: 0;">+91 98765 43210<br>Mon – Sat: 07.00 to 18.00</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 24px; color: var(--amber);">✉️</div>
+          <div>
+            <h5 style="font-family: 'Fraunces', serif; font-size: 18px; color: var(--paper); margin-bottom: 4px; font-weight: 400;">Email Address:</h5>
+            <p style="color: var(--paper-dim); font-size: 14px; line-height: 1.5; margin: 0;">hello@stacklystudio.com<br>booking@stacklystudio.com</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 24px; color: var(--amber);">📍</div>
+          <div>
+            <h5 style="font-family: 'Fraunces', serif; font-size: 18px; color: var(--paper); margin-bottom: 4px; font-weight: 400;">Location (HQ):</h5>
+            <p style="color: var(--paper-dim); font-size: 14px; line-height: 1.5; margin: 0;">MMR Complex, Chinna Thirupathi,<br>near Chinna Muniyappan Kovil,<br>Salem, Tamil Nadu 636008</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="index.html" class="logo">
+            <span style="font-family:'Fraunces',serif; font-size:26px; font-weight:600; letter-spacing:-0.5px; color:var(--amber);">Stackly</span>
+          </a>
+          <p style="color: var(--paper-dim); font-size: 15px; margin-top: 1rem; line-height: 1.6;">Documenting authentic stories since 2015. Shot on film, delivered with care. A standard of excellence across all four disciplines.</p>
+          <div style="display: flex; gap: 1.25rem; margin-top: 1.5rem;">
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="YouTube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="GitHub">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="Twitter">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+            </a>
+          </div>
+        </div>
+                  <div class="foot-col">
+            <h5 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-faint); margin-bottom: 18px;">Quick Links</h5>
+            <a href="index.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Home</a>
+            <a href="about.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">About</a>
+            <a href="gallery.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Gallery</a>
+            <a href="events.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Events</a>
+            <a href="services.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Services</a>
+            <a href="contact.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Contact</a>
+          </div>
+        <div class="foot-col">
+          <h5 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-faint); margin-bottom: 18px;">Services</h5>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Corporate Events</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Family Portraits</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Wedding Stories</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Travel Editorial</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Campus Events</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Seminars &amp; Classes</a>
+        </div>
+        <div class="foot-col">
+          <h5 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-faint); margin-bottom: 18px;">Subscribe Newsletter</h5>
+          <p style="margin-bottom: 1rem; color: var(--paper-dim); font-size: 13.5px; line-height: 1.6;">Enter your email and get recent studio news &amp; seasonal booking updates.</p>
+          <form class="foot-form js-validate" data-success="404.html" novalidate>
+            <input type="email" placeholder="your@email.com" data-validate="email" autocomplete="email">
+            <button type="submit" style="font-size: 18px;">✈</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="foot-bottom">
+        <span>Copyright © 2026 STACKLY. All Rights Reserved.</span>
+        <div class="socials">
+          <a href="404.html">Privacy & Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="validate.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

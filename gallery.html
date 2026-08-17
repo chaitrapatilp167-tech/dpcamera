@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — Stackly Photography Studio</title>
+  <meta name="description" content="Weddings, events, nature, studio, editorial, and office work — all shot on film first.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .gallery-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-bottom:64px; }
+    .g-stat { background:var(--ink-2); padding:28px 24px; text-align:center; }
+    .g-stat strong { display:block; font-family:'Fraunces',serif; font-size:30px; color:var(--amber); font-weight:500; margin-bottom:4px; }
+    .g-stat span { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--paper-faint); text-transform:uppercase; letter-spacing:.05em; }
+    @media(max-width:980px){ .gallery-stats { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a href="index.html" class="logo"><span style="font-family:'Fraunces',serif; font-size:26px; font-weight:600; letter-spacing:-0.5px; color:var(--amber);">Stackly</span></a>
+      <ul class="navlinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="navright">
+        <a href="login.html" class="login-link">Log in</a>
+        <a href="get-started.html" class="btn btn-solid">Get started</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-banner page-hero">
+      <video class="page-hero__bg" autoplay muted loop playsinline>
+        <source src="154384-807362369.mp4" type="video/mp4">
+      </video>
+      <div class="page-hero__overlay"></div>
+      <div class="wrap">
+        <span class="eyebrow">Gallery</span>
+        <div class="crumb"><a href="index.html">Home</a> / Gallery</div>
+        <h1>The full contact sheet.</h1>
+        <p>Every frame here was shot on film first. Filter by the kind of story you are looking for.</p>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <div class="wrap">
+        <div class="gallery-stats reveal">
+          <div class="g-stat"><strong>240+</strong><span>Weddings shot</span></div>
+          <div class="g-stat"><strong>9.8k</strong><span>Rolls developed</span></div>
+          <div class="g-stat"><strong>18</strong><span>Countries covered</span></div>
+          <div class="g-stat"><strong>4</strong><span>Disciplines</span></div>
+        </div>
+
+        <div class="section-head is-center reveal">
+          <span class="eyebrow">The work</span>
+          <h2>Nine frames from the stack.</h2>
+          <p>Weddings, events, nature, studio, editorial, and office — each image used once.</p>
+        </div>
+
+        <div class="filters is-center reveal" data-target="#full-gallery">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="wedding">Wedding</button>
+          <button class="filter-btn" data-filter="event">Event</button>
+          <button class="filter-btn" data-filter="nature">Nature</button>
+          <button class="filter-btn" data-filter="portrait">Portrait</button>
+          <button class="filter-btn" data-filter="editorial">Editorial</button>
+          <button class="filter-btn" data-filter="business">Business</button>
+        </div>
+
+        <div class="gallery-grid reveal" id="full-gallery">
+          <div class="g-item" data-cat="wedding">
+            <div class="g-img-wrap"><img src="img/g_w1.webp" alt=""></div>
+            <span class="caption">Wedding · Udaipur</span>
+            <h3>Pheras at dusk</h3>
+            <p>Portra 400, two shooters, a courtyard that held the last of the light.</p>
+          </div>
+          <div class="g-item" data-cat="event">
+            <div class="g-img-wrap"><img src="img/g_e1.webp" alt=""></div>
+            <span class="caption">Event · Mumbai</span>
+            <h3>Summit floor</h3>
+            <p>Keynotes and networking — usable frames for press and the recap.</p>
+          </div>
+          <div class="g-item" data-cat="nature">
+            <div class="g-img-wrap"><img src="img/g_n1.webp" alt=""></div>
+            <span class="caption">Nature · Himalaya</span>
+            <h3>First light</h3>
+            <p>A dawn hike that became a nature commission for a travel brand.</p>
+          </div>
+          <div class="g-item" data-cat="portrait">
+            <div class="g-img-wrap"><img src="img/g_studio.webp" alt=""></div>
+            <span class="caption">Studio · The sitting</span>
+            <h3>On the table</h3>
+            <p>Camera still life from Studio B — no sitter, just the tools.</p>
+          </div>
+          <div class="g-item" data-cat="editorial">
+            <div class="g-img-wrap"><img src="img/g_editorial_set.webp" alt=""></div>
+            <span class="caption">Editorial · Fieldwork Co.</span>
+            <h3>The set</h3>
+            <p>A fashion floor, empty of models — space, racks, and available light.</p>
+          </div>
+          <div class="g-item" data-cat="business">
+            <div class="g-img-wrap"><img src="img/g_office.webp" alt=""></div>
+            <span class="caption">Business · Leadership</span>
+            <h3>After hours</h3>
+            <p>An empty office, shot for a leadership series. Rooms, not faces.</p>
+          </div>
+          <div class="g-item" data-cat="wedding">
+            <div class="g-img-wrap"><img src="img/g_w2.webp" alt=""></div>
+            <span class="caption">Wedding · Goa</span>
+            <h3>By the water</h3>
+            <p>Destination coverage in Assagao — film, salt air, a linen album.</p>
+          </div>
+          <div class="g-item" data-cat="event">
+            <div class="g-img-wrap"><img src="img/g_e2.webp" alt=""></div>
+            <span class="caption">Event · Bengaluru</span>
+            <h3>Campus summit</h3>
+            <p>A full day of talks, no flash, a recap the organisers could use.</p>
+          </div>
+          <div class="g-item" data-cat="nature">
+            <div class="g-img-wrap"><img src="img/g_n2.webp" alt=""></div>
+            <span class="caption">Nature · Coorg</span>
+            <h3>Under canopy</h3>
+            <p>Mist, paths, and available light in the Western Ghats.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head is-center reveal">
+          <span class="eyebrow">Featured</span>
+          <h2>A closer look.</h2>
+          <p>One wedding, three frames not used in the grid above.</p>
+        </div>
+        <div class="featured-post reveal">
+          <img src="img/g_feat1.webp" alt="">
+          <div>
+            <span class="eyebrow">Wedding · Udaipur</span>
+            <h2>Riya &amp; Arjun, 2026</h2>
+            <p>A three-day Rajasthani wedding. Two darkroom rolls, one 48-page linen album. Shot on Portra 400. The brief: make it feel like it happened a hundred years ago, with the emotion of today.</p>
+            <a href="404.html" class="btn btn-ghost">Book a similar shoot →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap">
+        <span class="eyebrow">Like what you see?</span>
+        <h2>Let’s add your story to the stack.</h2>
+        <p>Tell us the date, the place, and what you want to remember.</p>
+        <div class="hero-cta">
+          <a href="404.html" class="btn btn-solid">Book a Consultation &rarr;</a>
+          <a href="404.html" class="btn btn-ghost">View Gallery</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-contact-strip" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 2rem; border-bottom: 1px solid var(--line); padding-bottom: 3rem; margin-bottom: 3rem;">
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 24px; color: var(--amber);">📞</div>
+          <div>
+            <h5 style="font-family: 'Fraunces', serif; font-size: 18px; color: var(--paper); margin-bottom: 4px; font-weight: 400;">Phone No:</h5>
+            <p style="color: var(--paper-dim); font-size: 14px; line-height: 1.5; margin: 0;">+91 98765 43210<br>Mon – Sat: 07.00 to 18.00</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 24px; color: var(--amber);">✉️</div>
+          <div>
+            <h5 style="font-family: 'Fraunces', serif; font-size: 18px; color: var(--paper); margin-bottom: 4px; font-weight: 400;">Email Address:</h5>
+            <p style="color: var(--paper-dim); font-size: 14px; line-height: 1.5; margin: 0;">hello@stacklystudio.com<br>booking@stacklystudio.com</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 24px; color: var(--amber);">📍</div>
+          <div>
+            <h5 style="font-family: 'Fraunces', serif; font-size: 18px; color: var(--paper); margin-bottom: 4px; font-weight: 400;">Location (HQ):</h5>
+            <p style="color: var(--paper-dim); font-size: 14px; line-height: 1.5; margin: 0;">MMR Complex, Chinna Thirupathi,<br>near Chinna Muniyappan Kovil,<br>Salem, Tamil Nadu 636008</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="index.html" class="logo">
+            <span style="font-family:'Fraunces',serif; font-size:26px; font-weight:600; letter-spacing:-0.5px; color:var(--amber);">Stackly</span>
+          </a>
+          <p style="color: var(--paper-dim); font-size: 15px; margin-top: 1rem; line-height: 1.6;">Documenting authentic stories since 2015. Shot on film, delivered with care. A standard of excellence across all four disciplines.</p>
+          <div style="display: flex; gap: 1.25rem; margin-top: 1.5rem;">
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="YouTube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="GitHub">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="404.html" style="color: var(--paper-dim); transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'" aria-label="Twitter">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+            </a>
+          </div>
+        </div>
+                  <div class="foot-col">
+            <h5 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-faint); margin-bottom: 18px;">Quick Links</h5>
+            <a href="index.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Home</a>
+            <a href="about.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">About</a>
+            <a href="gallery.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Gallery</a>
+            <a href="events.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Events</a>
+            <a href="services.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Services</a>
+            <a href="contact.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Contact</a>
+          </div>
+        <div class="foot-col">
+          <h5 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-faint); margin-bottom: 18px;">Services</h5>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Corporate Events</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Family Portraits</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Wedding Stories</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Travel Editorial</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Campus Events</a>
+          <a href="404.html" style="display: block; margin-bottom: 12px; color: var(--paper-dim); font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='var(--paper-dim)'">Seminars &amp; Classes</a>
+        </div>
+        <div class="foot-col">
+          <h5 style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-faint); margin-bottom: 18px;">Subscribe Newsletter</h5>
+          <p style="margin-bottom: 1rem; color: var(--paper-dim); font-size: 13.5px; line-height: 1.6;">Enter your email and get recent studio news &amp; seasonal booking updates.</p>
+          <form class="foot-form js-validate" data-success="404.html" novalidate>
+            <input type="email" placeholder="your@email.com" data-validate="email" autocomplete="email">
+            <button type="submit" style="font-size: 18px;">✈</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="foot-bottom">
+        <span>Copyright © 2026 STACKLY. All Rights Reserved.</span>
+        <div class="socials">
+          <a href="404.html">Privacy & Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="validate.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get started — Stackly Photography Studio</title>
+  <meta name="description" content="Create a Stackly account and start a booking for a wedding, office, seminar, or campus event.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="auth-page auth-page--start">
+    <div class="auth-box">
+      <a href="index.html" class="auth-back-btn" title="Back to Home" aria-label="Back to Home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      </a>
+      <a href="index.html" class="logo">
+        <span style="font-family:'Fraunces',serif; font-size:26px; font-weight:600; letter-spacing:-0.5px; color:var(--amber);">Stackly</span>
+      </a>
+      <span class="eyebrow">New client</span>
+      <h1>Get started.</h1>
+      <p>Create an account and tell us what you need covered. We reply within one business day.</p>
+      <form id="signup-form" class="js-validate" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="gs-first">First name</label>
+            <input id="gs-first" type="text" placeholder="Ananya" autocomplete="given-name" data-validate="name">
+          </div>
+          <div class="field">
+            <label for="gs-last">Last name</label>
+            <input id="gs-last" type="text" placeholder="Rao" autocomplete="family-name" data-validate="lastname">
+          </div>
+        </div>
+        <div class="field">
+          <label for="gs-email">Email</label>
+          <input id="gs-email" type="email" placeholder="you@email.com" autocomplete="email" data-validate="email">
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="gs-phone">Phone</label>
+            <input id="gs-phone" type="tel" placeholder="9876543210" autocomplete="tel" data-validate="phone" inputmode="numeric" maxlength="10">
+          </div>
+          <div class="field">
+            <label for="gs-type">What are you booking?</label>
+            <select id="gs-type" data-validate="required" data-empty="Please select what you are booking.">
+              <option value="">Select a coverage type</option>
+              <option>Marriage / wedding</option>
+              <option>Office function</option>
+              <option>Seminar / conference</option>
+              <option>Class / workshop</option>
+              <option>College event</option>
+              <option>Portrait sitting</option>
+              <option>Something else</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="gs-date">Preferred date</label>
+            <input id="gs-date" type="date" data-validate="required" data-empty="Please enter a date.">
+          </div>
+          <div class="field">
+            <label for="gs-city">Studio location</label>
+            <select id="gs-city" data-validate="required" data-empty="Please select a location.">
+              <option value="">Select nearest city</option>
+              <option>Bengaluru</option>
+              <option>Mumbai</option>
+              <option>Goa</option>
+              <option>Salem (HQ)</option>
+              <option>Other / Destination</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="gs-pass">Password</label>
+            <div class="password-wrap">
+              <input id="gs-pass" type="password" placeholder="At least 8 characters" autocomplete="new-password" data-validate="password">
+              <button type="button" class="toggle-password-btn" aria-label="Toggle password visibility" title="Show/Hide Password">
+                <svg class="eye-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                <svg class="eye-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+              </button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="gs-confirm-pass">Confirm password</label>
+            <div class="password-wrap">
+              <input id="gs-confirm-pass" type="password" placeholder="Re-enter password" autocomplete="new-password" data-validate="confirm-password">
+              <button type="button" class="toggle-password-btn" aria-label="Toggle password visibility" title="Show/Hide Password">
+                <svg class="eye-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                <svg class="eye-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-solid submit-btn">Create account →</button>
+      </form>
+      <p class="auth-switch">Already with us? <a href="login.html">Log in</a></p>
+    </div>
+  </main>
+  <script src="validate.js"></script>
+</body>
+</html>

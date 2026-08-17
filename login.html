@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log in — Stackly Photography Studio</title>
+  <meta name="description" content="Log in to your Stackly studio account to view galleries, albums, and bookings.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="auth-page auth-page--login">
+    <div class="auth-box">
+      <a href="index.html" class="auth-back-btn" title="Back to Home" aria-label="Back to Home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      </a>
+      <a href="index.html" class="logo">
+        <span style="font-family:'Fraunces',serif; font-size:26px; font-weight:600; letter-spacing:-0.5px; color:var(--amber);">Stackly</span>
+      </a>
+      <span class="eyebrow">Welcome back</span>
+      <h1>Log in to Stackly.</h1>
+      <p>Use the email we sent your gallery to. New here? Create an account in a minute.</p>
+      <form id="login-form" class="js-validate" action="dashboard.html" method="get" novalidate>
+        <div class="field">
+          <label>Sign in as</label>
+          <div class="role-pick">
+            <label>
+              <input type="radio" name="role" value="client" checked>
+              <span>Client</span>
+              <em>Galleries &amp; albums</em>
+            </label>
+            <label>
+              <input type="radio" name="role" value="photographer">
+              <span>Photographer</span>
+              <em>Studio dashboard</em>
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="login-email">Email</label>
+          <input id="login-email" name="email" type="email" placeholder="you@email.com" autocomplete="email" data-validate="email">
+        </div>
+        <div class="field">
+          <label for="login-password">Password</label>
+          <div class="password-wrap">
+            <input id="login-password" type="password" placeholder="••••••••" autocomplete="current-password" data-validate="password">
+            <button type="button" class="toggle-password-btn" aria-label="Toggle password visibility" title="Show/Hide Password">
+              <svg class="eye-show" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              <svg class="eye-hide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+            </button>
+          </div>
+        </div>
+        <div class="auth-row">
+          <label class="auth-check">
+            <input type="checkbox">
+            Remember me
+          </label>
+          <a href="#" class="subtle">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-solid submit-btn">Log in →</button>
+      </form>
+      <p class="auth-switch">Don’t have an account? <a href="get-started.html">Get started</a></p>
+    </div>
+  </main>
+  <script src="validate.js"></script>
+  <script>
+    (function () {
+      try {
+        var q = new URLSearchParams(window.location.search).get('email');
+        if (q) document.getElementById('login-email').value = q;
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
